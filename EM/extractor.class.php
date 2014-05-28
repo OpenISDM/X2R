@@ -173,7 +173,30 @@ class Extractor
     {
 
     }
+/*
 
+Graph model
+
+attributes:
+
+- tupleId (int)
+----
+ - tupleType (resource/literal)
+ - subject (str)
+ - predicate (str)
+ - objectType (uri/literal)
+ - objectValue (str)
+ - objectDatatype (NULL/datatype)
+
+Uri index
+
+attributes:
+
+- uri
+----
+ - tupleIds (array)
+
+*/
     protected function addTuple($ttyp, $s, $p, $ot, $ov, $od)
     {
         $tid = $this->getTupleId();
