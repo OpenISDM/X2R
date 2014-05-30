@@ -197,6 +197,10 @@ attributes:
  - tupleIds (array)
 
 */
+
+//--------Begin of Refactoring to class-rdfGraph
+//--------------------------------------------   
+
     protected function addTuple($ttyp, $s, $p, $ot, $ov, $od)
     {
         $tid = $this->getTupleId();
@@ -288,6 +292,9 @@ attributes:
 
     }
 
+
+//--------End of Refactoring to class-rdfGraph
+//--------------------------------------------    
     public function getFiltedUris()
     {
 
