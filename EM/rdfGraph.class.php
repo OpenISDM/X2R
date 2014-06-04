@@ -35,8 +35,8 @@
     
 --*/
 header ('Content-Type: text/html; charset=utf-8');
-include 'caseBasedTokenizer.class.php';
-include 'delimitBasedTokenizer.class.php';
+include_once 'caseBasedTokenizer.class.php';
+include_once 'delimitBasedTokenizer.class.php';
 
 Abstract Class RdfGraph
 {
@@ -45,7 +45,7 @@ Abstract Class RdfGraph
     private $x2rGraph = array();
     private $uriIndex = array();
     private $tupleIdCounter = 0;
-
+    
 
 
     
@@ -81,9 +81,9 @@ Abstract Class RdfGraph
     parent constructor, i.e., $this->RdfGraph(); 
         
     --*/
-    function RdfGraph()
+    function RdfGraph($data)
     {
-        $this->parse();
+        $this->parse($data);
     }
 
 
@@ -111,25 +111,38 @@ Abstract Class RdfGraph
 
     --*/
 
-    public abstract function parse();
+    public abstract function parse($data);
 
-    protected function addTuple($ttyp, $s, $p, $ot, $ov, $od)
+    protected function addTuple($s, $p, $ot, $ov, $od)
     {
         $tid = $this->getTupleId();
         $newTuple = array();
-        $newTuple['tupleType'] = $ttyp;
         $newTuple['subject'] = $s;
         $newTuple['predicate'] = $p;
         $newTuple['objectType'] = $ot;
         $newTuple['objectValue'] = $ov;
         $newTuple['objectDatatype'] = $od;
         $this->x2rGraph[$tid] = $newTuple;
-        
+        $this->addIndex($tid);
 
         return $tid;
 
     }
 
+    protected function getGraph()
+    {
+        return $this->x2rGraph;
+    }
+
+    protected function getIndex()
+    {
+        return $this->uriIndex;
+    }
+
+    public function getUris()
+    {
+        return array_keys($this->uriIndex);
+    }
 
     protected function addIndex($tid)
     {
@@ -141,7 +154,6 @@ Abstract Class RdfGraph
 
         
         //check subject
-        echo $sub;
         $haystack = array_keys($this->uriIndex);
         if (in_array($sub, $haystack))
         {
@@ -193,15 +205,22 @@ Abstract Class RdfGraph
         return (string)$this->tupleIdCounter;
     }
 
-    public function tokenize($str)
+    protected function tupleTailType($uorl)
     {
-        $d = new Delimit_Based_Tokenizer();
-        $c = new Case_Based_Tokenizer();
-        $tempArr = $d->tokenizeStr($str);
-        $finalArr = $c->tokenizeArr($tempArr);
-
-        return $finalArr;
-
+        if ($uorl == 'uri')
+        {
+            return 'URI';
+        }
+        elseif ($uorl == 'literal')
+        {
+            return 'Literal';
+        }
+        else 
+        {
+            return 'false';
+        }
     }
+
+
 
 }

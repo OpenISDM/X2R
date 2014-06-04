@@ -1,24 +1,30 @@
 <?php
-namespace X2r\Em;
-
-use X2r\Em\Tokenizer;
 
 
 class Mapper
 {
-    public function sampleFunction($a, $b = null)
+  
+    function Mapper()
     {
-        if ($a === $b) {
-            bar();
-        } elseif ($a > $b) {
-            $foo->bar($arg1);
-        } else {
-            BazClass::bar($arg2, $arg3);
-        }
+
     }
 
-    final public static function bar()
+
+    protected function refactoring($change)
     {
-        // method body
+        // replace uri
+    }
+
+    protected function impactAnalysis($change)
+    {
+        // analyze by index
+    }
+
+    public function serialize($format)
+    {
+        $newRdfContent;
+
+        return $newRdfContent;
+
     }
 }

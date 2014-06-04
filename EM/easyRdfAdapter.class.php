@@ -43,15 +43,101 @@ Class Easy_Rdf_Adapter extends rdfGraph
     protected function EasyRdfAdapter()
     {
         $this->rdfGrapn();
+
+
     }
 
-    public function parse()
+    public function parse($data)
     {
-        echo 'test';
+
+        $g;
+
+        try
+        {
+            $g = new EasyRdf_Graph(' ', $data, 'rdfxml');
+        } catch (Exception $e) 
+        {
+            echo 'exception!! invalid RDF.';
+            error_log('exception!! invalid RDF.', 0);
+        } finally 
+        {
+            //If parse is success, then add contents 
+            //into graph model. 
+            $this->buildGraphModel($g);
+
+
+
+        }
+        
 
     }
+
+
+
+private function buildGraphModel($g)
+    {
+
+        $count = 0;
+        $rdfType = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type';
+        $assarr = $g->toRdfPhp();
+
+
+        //obj-pre-sub  
+        foreach ($assarr as $obj => $presub)
+        {
+           
+            foreach($presub as $pre => $subArr)
+            {
+
+                $subType = $subArr[0]['type'];
+                $subValue = $subArr[0]['value'];
+
+                
+                if ($this->tupleTailType($subType) != 'false')
+                {
+
+
+                    $ttype = $this->tupleTailType($subType);
+                    
+                    if (in_array('datatype', (array_keys($subArr[0]))))
+                    {
+                        $od = $subArr[0]['datatype'];
+                    }
+                    else
+                    {
+                        $od = NULL;   
+                    }
+
+                    $this->addTuple($obj, $pre, $subType, $subValue, $od);
+
+                }else
+                {
+                   //TODO: unexpected object type handling
+                }
+                
+               
+
+
+            }
+
+
+        }
+
+
+
+    }
+
+
+
+
+
+
+
 
 }
 
-$a = new Easy_Rdf_Adapter();
+
+$file = '../../data/MAD_D.rdf';
+$data = file_get_contents($file);
+$a = new Easy_Rdf_Adapter($data);
 

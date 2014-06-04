@@ -19,7 +19,7 @@ abstract class Tokenizer
     	return $newArr;
     }
 
-    protected function arrToString(array $arr)
+    public function arrToString(array $arr)
     {
     	$newStr = '';
     	foreach ($arr as $value)

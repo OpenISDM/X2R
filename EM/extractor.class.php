@@ -36,18 +36,16 @@
 --*/
 //namespace X2R\EM;
 header ('Content-Type: text/html; charset=utf-8');
-include 'caseBasedTokenizer.class.php';
-include 'delimitBasedTokenizer.class.php';
-
+include_once 'caseBasedTokenizer.class.php';
+include_once 'delimitBasedTokenizer.class.php';
+include_once 'EasyRdfAdapter.class.php';
 
 class Extractor
 {
 
     private $filteredUri = array();
     private $graph;
-    private $x2rGraph = array();
-    private $uriIndex = array();
-    private $tupleIdCounter = 0;
+
 
     /*++
     Function Name:
@@ -69,110 +67,14 @@ class Extractor
         
     --*/
     
-    public function __construct(EasyRdf_Graph $graph)
+    function Extractor(rdfGraph $graph)
     {
     	$this->graph = $graph;
-        $this->parse();
 
     }
 
 
-    public function getUris()
-    {
 
-        $count = 0;
-        $rdfType = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type';
-        $assarr = $this->graph->toRdfPhp();
-        
-
-        print_r($assarr);
-        echo '<br><br><br>';
-        echo ' alf123 '.implode('  -  ', array_keys($assarr));
-        echo '<br><br><br>';
-
-
-
-        //obj-pre-sub  
-        foreach ($assarr as $obj => $presub)
-        {
-            
-            echo '--------------';
-            echo '<br><br><br>';
-            echo $obj;
-            
-            echo '<br><br><br>';
-            print_r($presub);
-            echo '<br><br><br>';
-            echo ' alf123 '.implode('  <br>  ', array_keys($presub));
-            echo '<br>--------------';
-            
-            foreach($presub as $pre => $subArr)
-            {
-                echo '<br><br>';
-                echo $pre;
-                echo '<br>';
-                echo implode('  <br>  ', array_keys($subArr[0]));
-                $subType = $subArr[0]['type'];
-                $subValue = $subArr[0]['value'];
-                echo '----<br> type -> '.$subType;
-                echo '<br> value -> '.$subValue;
-                echo '<br><br>';
-            }
-/*
-            foreach ($resdata as $key => $value)
-            {
-             echo '---33333------';
-            echo '<br><br><br>';
-            echo $key;
-            echo '<br><br><br>';
-            print_r($value[0]);
-            echo '<br><br><br>';
-            echo '----33333-----';
-
-            if ($value[0] == 'uri')
-            {
-
-            }
-
-            }
-*/
-
-
-        }
-
-
-
-
-        foreach ($assarr as $resourceKey => $resource) 
-        {
-            //print_r($resource);
-            //echo '<br><br><br>';
-            
-
-            foreach ($resource as $property => $values) 
-            {
-            /*    
-                echo '<br><br>+++++++++++'.implode('-', array_keys($assarr[$resourceKey][$property][0])).'<br><br>'; 
-                // Only 'some' literal has the dictionary key :: datatype
-                echo 'property is '.$property.'<br><br>';
-                echo '<br><br>type:====='.$assarr[$resourceKey][$property][0]['type'].'<br>';
-                echo '<br><br>value:====='.$assarr[$resourceKey][$property][0]['value'].'<br>';
-                echo '<br><br>+oo++ooo||  '.implode('.     v    .', array_keys($assarr[$resourceKey])).'  ||<br><br>';
-                $f = array_keys($assarr[$resourceKey][$property][0]);
-                print_r($f);
-            */
-
-                //echo $count += count($values);
-            }
-        }
-   	
-
-    }
-
-    protected function parse()
-    {
-
-    }
 /*
 
 Graph model
@@ -198,88 +100,40 @@ attributes:
 
 */
 
-//--------Begin of Refactoring to class-rdfGraph
-//--------------------------------------------   
+   public function getQueryTerms()
+   {
+        $allUris = $this->graph->getUris();
+        //TODO: do actual filtering 
+        $filteredUris = $allUris;
+        foreach ($filteredUris as $uri)
+        {
+            echo ($this->tokenize($this->uriTail($uri)));
+            echo '<br>';
+        }
 
-    protected function addTuple($ttyp, $s, $p, $ot, $ov, $od)
+   }
+
+   public function uriDomain($uri)
+   {
+        //return the head (domain) of $uri
+        return $udomain;
+
+   }
+
+    public function uriTail($uri)
     {
-        $tid = $this->getTupleId();
-        $newTuple = array();
-        $newTuple['tupleType'] = $ttyp;
-        $newTuple['subject'] = $s;
-        $newTuple['predicate'] = $p;
-        $newTuple['objectType'] = $ot;
-        $newTuple['objectValue'] = $ov;
-        $newTuple['objectDatatype'] = $od;
-        $this->x2rGraph[$tid] = $newTuple;
-        
-
-        return $tid;
-
+        $utail = end(preg_split("[/]", $uri));
+        return $utail;
     }
 
-
-    protected function addIndex($tid)
+    protected function validUri($uri)
     {
-        $tuple = $this->x2rGraph[$tid];
-        $sub = $tuple['subject'];
-        $pre = $tuple['predicate'];
-        $obType = $tuple['objectDatatype'];
-        
+        //protocol: http or https
+        //TODO: validation rules here
 
-        
-        //check subject
-        echo $sub;
-        $haystack = array_keys($this->uriIndex);
-        if (in_array($sub, $haystack))
-        {
-            $this->uriIndex[$sub][] = $tid;
-
-        }
-        else
-        {
-            $this->uriIndex[$sub] = array($tid);
-
-        }
-
-        //check predicate
-        if (in_array($pre, array_keys($this->uriIndex)))
-        {
-            $this->uriIndex[$pre][] = $tid;
-
-        }
-        else
-        {
-            $this->uriIndex[$pre] = array($tid);
-
-        }
-
-        //check object
-
-        if ($obType == 'URI')
-        {
-            $obj = $tuple['objectValue'];
-            if (in_array($obj, array_keys($this->uriIndex)))
-            {
-                $this->uriIndex[$obj][] = $tid;
-
-            }
-            else
-            {
-                $this->uriIndex[$obj] = array($tid);
-
-            }
-        }
-
-
-
+        return true;
     }
 
-    protected function getTupleId()
-    {
-        $this->tupleIdCounter = $this->tupleIdCounter + 1;
-        return (string)$this->tupleIdCounter;
-    }
 
     public function tokenize($str)
     {
@@ -287,14 +141,11 @@ attributes:
         $c = new Case_Based_Tokenizer();
         $tempArr = $d->tokenizeStr($str);
         $finalArr = $c->tokenizeArr($tempArr);
-
-        return $finalArr;
+        $finalStr = $d->arrToString($finalArr);
+        return $finalStr;
 
     }
 
-
-//--------End of Refactoring to class-rdfGraph
-//--------------------------------------------    
     public function getFiltedUris()
     {
 
@@ -316,4 +167,8 @@ attributes:
 
 }
 
-
+$file = '../../data/MAD_D.rdf';
+$data = file_get_contents($file);
+$a = new Easy_Rdf_Adapter($data);
+$b = new Extractor($a);
+$b->getQueryTerms();
