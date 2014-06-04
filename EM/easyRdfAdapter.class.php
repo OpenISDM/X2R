@@ -13,17 +13,14 @@
     
     File Name:
 
-        extractor.class.php
+        easyRdfAdapter.class.php
 
     Abstract:
 
-        extractor.class.php is the class for modeling the 
-        URI extracting & transforming process as below. 
+        easyRdfAdapter.class.php is the class for adapting the 
+        parsing utilities of EasyRDF to the standard operations
+        defined by OpenISDM VR X2R. 
         
-        Step 1. Load the RDF content to a Graph data structure
-        Step 2. Traverse the Graph to finding all the URIs
-        Step 3. Transform these URIs to search friendly terms
-        Step 4. Wrap these terms as a JSON output
 
 
 
@@ -47,6 +44,31 @@ Class Easy_Rdf_Adapter extends rdfGraph
 
     }
 
+    /*++
+    Function Name:
+
+        parse
+
+    Function Description:
+        
+        In this method, programmer parse RDF
+        based on the adapted parser, such as 
+        EasyRDF. And then use the protected 
+        method, 'addTuple', to add each tuple
+        found in the inputed RDF. 
+
+    Parameters:
+
+        $data: 
+
+
+    Returned Value:
+        
+
+    Possible Error Code:
+
+    --*/
+
     public function parse($data)
     {
 
@@ -54,8 +76,12 @@ Class Easy_Rdf_Adapter extends rdfGraph
 
         try
         {
+            //TODO: extract the format, i.g., rdfxml, as parameter
+            //TODO: make format flag independent with underlying parser, i.e., EasyRDF or other parser
+            //      possible solution, use a RDF parser specific format termology mapping table
             $g = new EasyRdf_Graph(' ', $data, 'rdfxml');
-        } catch (Exception $e) 
+        } 
+        catch (Exception $e) 
         {
             echo 'exception!! invalid RDF.';
             error_log('exception!! invalid RDF.', 0);
@@ -72,9 +98,30 @@ Class Easy_Rdf_Adapter extends rdfGraph
 
     }
 
+    /*++
+    Function Name:
+
+        buildGraphModel
+
+    Function Description:
+        
+        This is a private method for encapsulating
+        the adapting details, which are specific to 
+        EasyRDF. 
+
+    Parameters:
+
+        $g
 
 
-private function buildGraphModel($g)
+    Returned Value:
+        
+
+    Possible Error Code:
+
+    --*/
+
+    private function buildGraphModel($g)
     {
 
         $count = 0;

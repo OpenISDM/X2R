@@ -13,17 +13,18 @@
     
     File Name:
 
-        extractor.class.php
+        rdfGraph.class.php
 
     Abstract:
 
-        extractor.class.php is the class for modeling the 
-        URI extracting & transforming process as below. 
+        rdfGraph.class.php is the class for modeling the 
+        RDF graph in a standard way. Developers can add
+        new third party RDF parsers into X2R by adapting
+        the parser's output to rdfGraph. For example, 
+        eayRdfAdapter.class.php is an adapter, which 
+        adapts utilities of EasyRDF to rdfGraph.  
         
-        Step 1. Load the RDF content to a Graph data structure
-        Step 2. Traverse the Graph to finding all the URIs
-        Step 3. Transform these URIs to search friendly terms
-        Step 4. Wrap these terms as a JSON output
+
 
 
 
@@ -62,13 +63,15 @@ Abstract Class RdfGraph
 
     Parameters:
 
+        $data
+
 
     Returned Value:
         
 
     Possible Error Code:
 
-    Note (W.T)
+    Note (W.I.)
 
     PHP does not provide for an automatic chain of constructors;
     that is, if you instanti- ate an object of a derived class, 
@@ -95,13 +98,17 @@ Abstract Class RdfGraph
 
     Function Description:
         
-        In this method, programmer parse RDF
-        based on the adapted parser, such as 
-        EasyRDF. And then use the protected 
-        method, 'addTuple', to add each tuple
-        found in the inputed RDF. 
+        This is an abstract method for developers
+        to define RDF parser-specific parse 
+        process. For example, programmer adapt 
+        parser, such as EasyRDF. And then use 
+        the protected method, 'addTuple', to 
+        add each tuple found in the inputed RDF
+        into rdfGraph. 
 
     Parameters:
+
+        $data
 
 
     Returned Value:
@@ -112,6 +119,37 @@ Abstract Class RdfGraph
     --*/
 
     public abstract function parse($data);
+
+
+
+    /*++
+    Function Name:
+
+        addTuple
+
+    Function Description:
+        
+        This method provides an incremental way to
+        turn input RDF data into X2R specific rdfGraph, 
+        where the incremental way means that one tuple 
+        per time.  
+
+    Parameters:
+
+        $s
+        $p
+        $ot
+        $ov
+        $od
+
+
+    Returned Value:
+        
+
+    Possible Error Code:
+
+    --*/
+
 
     protected function addTuple($s, $p, $ot, $ov, $od)
     {
@@ -129,20 +167,112 @@ Abstract Class RdfGraph
 
     }
 
+
+    /*++
+    Function Name:
+
+        getGraph
+
+    Function Description:
+        
+        Get the internal rdfGraph 
+        in the form of associative
+        array. 
+
+    Parameters:
+
+
+    Returned Value:
+        
+
+    Possible Error Code:
+
+    --*/
+
     protected function getGraph()
     {
         return $this->x2rGraph;
     }
+
+    /*++
+    Function Name:
+
+        getIndex
+
+    Function Description:
+        
+        Get the internal index 
+        in the form of associative
+        array. 
+
+    Parameters:
+
+        $data
+
+
+    Returned Value:
+        
+
+    Possible Error Code:
+
+    --*/
 
     protected function getIndex()
     {
         return $this->uriIndex;
     }
 
+    /*++
+    Function Name:
+
+        getUris
+
+    Function Description:
+        
+        This method returns all
+        unique URIs as an array. 
+
+    Parameters:
+
+
+    Returned Value:
+        
+
+    Possible Error Code:
+
+    --*/
+
     public function getUris()
     {
         return array_keys($this->uriIndex);
     }
+
+
+    /*++
+    Function Name:
+
+        addIndex
+
+    Function Description:
+        
+        During addTuple(), the indexing
+        is conducted simultaneously. The 
+        rdfGraph is index by URIs. For 
+        the sake of resource saving, it uses 
+        tuple-id as the reference to 
+        actual tuple of the rdfGraph.  
+
+    Parameters:
+
+        $tid
+
+
+    Returned Value:
+        
+
+    Possible Error Code:
+
+    --*/
 
     protected function addIndex($tid)
     {
@@ -199,11 +329,61 @@ Abstract Class RdfGraph
 
     }
 
+    /*++
+    Function Name:
+
+        getTupleId
+
+    Function Description:
+        
+        This protected method is only 
+        used for indexing purpose. 
+        Within the life cycle of rdfGraph 
+        instance, this method generates 
+        a unique id for each method call. 
+
+    Parameters:
+
+
+    Returned Value:
+        
+
+    Possible Error Code:
+
+    --*/
+
     protected function getTupleId()
     {
         $this->tupleIdCounter = $this->tupleIdCounter + 1;
         return (string)$this->tupleIdCounter;
     }
+
+
+    /*++
+    Function Name:
+
+        tupleTailType
+
+    Function Description:
+        
+        Different parser might use different 
+        terms to represent same concept of tuple Type.
+        This method is a mapping from parser-specific 
+        terms to X2R standard terms. To decouple the 
+        tight dependency between underlying parser
+        and X2R interface.   
+
+    Parameters:
+
+        $uorl
+
+
+    Returned Value:
+        
+
+    Possible Error Code:
+
+    --*/
 
     protected function tupleTailType($uorl)
     {
