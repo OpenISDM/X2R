@@ -1,4 +1,4 @@
-X2R-ME
+X2R-EM
 ======
 
 X2R is a Tool Set for translating raw data into Linked Data.
@@ -10,7 +10,7 @@ X2R is composed of several tools:
    * Mapper
 
 This repository hosts two tools of X2R, **Extractor** and **Mapper**, 
-together called as **X2R-ME**.
+together called as **X2R-EM**.
 
 *Extractor* is a tool to extract URIs from a given RDF, and then turn
 these URIs into query terms. The purpose of Extractor is to find the
