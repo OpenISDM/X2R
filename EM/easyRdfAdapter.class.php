@@ -98,6 +98,39 @@ Class Easy_Rdf_Adapter extends rdfGraph
 
     }
 
+    public function serialize($format)
+    {
+        $xg = $this->x2rGraph;
+        $graph = new EasyRdf_Graph();
+        foreach( $xg as $tid => $tuple)
+        {
+            //echo $tid.'<br>';
+            //print_r($tuple);
+            //echo '<br><br>';
+            $s = $tuple['subject'];
+            $p = $tuple['predicate'];
+            $o = $tuple['objectValue'];
+
+            switch ($tuple['objectType'])
+            {
+                case 'literal':
+                    //echo $tuple['subject'].$tuple['predicate'].$tuple['objectValue'];
+                    $graph->addLiteral($s, $p, $o);
+                    break;
+                case 'uri':
+                    //echo $tuple['subject'].$tuple['predicate'].$tuple['objectValue'];
+                    $graph->addResource($s, $p, $o);
+                    break;
+                default:
+                    echo 'F<br>';
+            }
+        }
+
+        $output = $graph->serialise($format);
+        echo $output;
+
+    }
+
     /*++
     Function Name:
 

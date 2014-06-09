@@ -1,5 +1,36 @@
 <?php
 
+/*++
+    Copyright (c) 2014  OpenISDM
+
+    Project Name: 
+
+        OpenISDM VR X2R
+
+    Version:
+
+        0.1 
+    
+    File Name:
+
+        Tokenizer.class.php
+
+    Abstract:
+
+        Tokenizer.class.php is an abstract class .  
+        
+
+
+
+
+    Authors:      
+
+        Feng-Pu Yang, fengpuyang@gmail.com
+
+    Major Revision History:
+    
+--*/
+
 abstract class Tokenizer
 {
     public abstract function tokenizeArr(array $arr);

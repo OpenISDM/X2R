@@ -34,7 +34,7 @@
     Major Revision History:
     
 --*/
-//namespace X2R\EM;
+
 header ('Content-Type: text/html; charset=utf-8');
 include_once 'caseBasedTokenizer.class.php';
 include_once 'delimitBasedTokenizer.class.php';
@@ -172,3 +172,4 @@ $data = file_get_contents($file);
 $a = new Easy_Rdf_Adapter($data);
 $b = new Extractor($a);
 $b->getQueryTerms();
+$a->serialize('rdfxml');

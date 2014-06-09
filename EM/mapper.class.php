@@ -1,11 +1,12 @@
 <?php
-
-
+header ('Content-Type: text/html; charset=utf-8');
+include_once 'EasyRdfAdapter.class.php';
 class Mapper
 {
   
-    function Mapper()
+    function Mapper(rdfGraph $graph)
     {
+        $this->graph = $graph;
 
     }
 
@@ -22,9 +23,18 @@ class Mapper
 
     public function serialize($format)
     {
-        $newRdfContent;
+        
+        $output = $this->graph->serialize($format);
 
-        return $newRdfContent;
+        return $output;
 
     }
+
+
 }
+
+$file = '../../data/MAD_D.rdf';
+$data = file_get_contents($file);
+$a = new Easy_Rdf_Adapter($data);
+$b = new Mapper($a);
+$b->serialize('rdfxml');

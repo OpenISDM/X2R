@@ -43,7 +43,7 @@ Abstract Class RdfGraph
 {
 
 
-    private $x2rGraph = array();
+    protected $x2rGraph = array();
     private $uriIndex = array();
     private $tupleIdCounter = 0;
     
@@ -120,7 +120,7 @@ Abstract Class RdfGraph
 
     public abstract function parse($data);
 
-
+    public abstract function serialize($format);
 
     /*++
     Function Name:
