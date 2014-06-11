@@ -151,7 +151,7 @@ Abstract Class RdfGraph
     --*/
 
 
-    protected function addTuple($s, $p, $ot, $ov, $od)
+    public function addTuple($s, $p, $ot, $ov, $od)
     {
         $tid = $this->getTupleId();
         $newTuple = array();
@@ -164,6 +164,45 @@ Abstract Class RdfGraph
         $this->addIndex($tid);
 
         return $tid;
+
+    }
+
+    public function addTupleById($tid, $s, $p, $ot, $ov, $od)
+    {
+        $tid = $tid;
+        $newTuple = array();
+        $newTuple['subject'] = $s;
+        $newTuple['predicate'] = $p;
+        $newTuple['objectType'] = $ot;
+        $newTuple['objectValue'] = $ov;
+        $newTuple['objectDatatype'] = $od;
+        $this->x2rGraph[$tid] = $newTuple;
+        $this->addIndex($tid);
+
+        return $tid;
+
+    }
+
+    public function removeTuple($tid)
+    {
+        //delete from x2rGraph
+
+        $remove = $this->x2rGraph[$tid];
+        unset($this->x2rGraph[$tid]);
+
+        //delete from uriIndex 
+        
+        foreach($this->uriIndex as $key => $value) {
+            
+            if (in_array($tid, $value))
+            {
+
+                $this->uriIndex[$key] = array_diff($value, array($tid));
+
+            }
+        }
+
+        return $remove;
 
     }
 
@@ -217,7 +256,7 @@ Abstract Class RdfGraph
 
     --*/
 
-    protected function getIndex()
+    public function getIndex()
     {
         return $this->uriIndex;
     }
@@ -355,7 +394,13 @@ Abstract Class RdfGraph
     protected function getTupleId()
     {
         $this->tupleIdCounter = $this->tupleIdCounter + 1;
+        //while (in_array(needle, array_keys($this->)))
         return (string)$this->tupleIdCounter;
+    }
+
+    public function getTupleById($tid)
+    {
+        return $this->x2rGraph[$tid];
     }
 
 

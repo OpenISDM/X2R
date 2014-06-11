@@ -127,7 +127,8 @@ Class Easy_Rdf_Adapter extends rdfGraph
         }
 
         $output = $graph->serialise($format);
-        echo $output;
+        //echo $output;
+        return $output;
 
     }
 
@@ -217,7 +218,4 @@ Class Easy_Rdf_Adapter extends rdfGraph
 }
 
 
-$file = '../../data/MAD_D.rdf';
-$data = file_get_contents($file);
-$a = new Easy_Rdf_Adapter($data);
 

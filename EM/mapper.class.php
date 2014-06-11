@@ -11,14 +11,22 @@ class Mapper
     }
 
 
-    protected function refactoring($change)
+    public function refactoring($refType, $change)
     {
-        // replace uri
+        $this->getRefactor($refType)->refactoring($change);
+
     }
 
     protected function impactAnalysis($change)
     {
         // analyze by index
+    }
+
+    protected function getRefactor($refactorType)
+    {
+
+
+
     }
 
     public function serialize($format)
@@ -33,8 +41,4 @@ class Mapper
 
 }
 
-$file = '../../data/MAD_D.rdf';
-$data = file_get_contents($file);
-$a = new Easy_Rdf_Adapter($data);
-$b = new Mapper($a);
-$b->serialize('rdfxml');
+

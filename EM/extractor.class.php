@@ -167,9 +167,12 @@ attributes:
 
 }
 
+/* test script
+
 $file = '../../data/MAD_D.rdf';
 $data = file_get_contents($file);
 $a = new Easy_Rdf_Adapter($data);
 $b = new Extractor($a);
 $b->getQueryTerms();
 $a->serialize('rdfxml');
+end test script */
