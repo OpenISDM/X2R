@@ -13,12 +13,12 @@
     
     File Name:
 
-        mapper.php
+        extractor.php
 
     Abstract:
 
-        mapper.php is the Web interface of 
-        Mapper class (mapper.class.php)
+        The Web interface of Extractor Class
+        (extractor.class.php)
 
 
 
@@ -30,33 +30,28 @@
     
 --*/
 
-
 header ('Content-Type: text/html; charset=utf-8');
 require 'vendor/autoload.php';
-include_once 'mapper.class.php';
+include_once 'extractor.class.php';
 include_once 'easyRdfAdapter.class.php';
 include_once 'webUtilities.php';
 
 
-$format = getParameter('format');
-$mapping = getParameter('mapping');
+$excludedNameSpace = getParameter('excludedNameSpace');
+$checkUrisStatus = getParameter('checkUrisStatus');
 $rdfContent = getParameter('rdfContent');
 
 
 
 
-if ($format)
+if ($excludedNameSpace)
 {
-   //TODO: check if the $format is the supported format
-}
-else
-{
-    $format = 'rdfxml'; //set the decault format
+   //TODO: implement the namespace exclusion
 }
 
-if ($mapping)
+if ($checkUrisStatus)
 {
-    
+    //TODO: implement the uri status test
 
 }
 
@@ -64,10 +59,13 @@ if ($rdfContent)
 {
     //echo $rdfContent; 
     $a = new Easy_Rdf_Adapter($rdfContent);
-    $b = new Mapper($a);
+    $b = new Extractor($a);
     $c = $b->getQueryTerms();
     echo json_encode($c);
 
 
 
 }
+
+
+
