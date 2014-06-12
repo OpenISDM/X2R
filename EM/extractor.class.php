@@ -112,12 +112,13 @@ attributes:
         $mapping = array();
         foreach ($filteredUris as $uri)
         {
-            $result = $result.($this->tokenize($this->uriTail($uri))).' ';
+            $term = $result.($this->tokenize($this->uriTail($uri))).' ';
             $entry = new MEntry();
             $entry->originalURI = $uri;
             $entry->replacedURI = '';
             $entry->status = 'N/A'; //TODO: add the status checking 
             $entry->lineNumbers = ''; //TODO: check the line number
+            $entry->term = $term;
             array_push($mapping, $entry);
             
         }
