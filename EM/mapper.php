@@ -13,17 +13,12 @@
     
     File Name:
 
-        mapperwebapi.class.php
+        mapper.php
 
     Abstract:
 
-        mapperwebapi.class.php is the class for modeling the 
-        URI extracting & transforming process as below. 
-        
-        Step 1. Load the RDF content to a Graph data structure
-        Step 2. Traverse the Graph to finding all the URIs
-        Step 3. Transform these URIs to search friendly terms
-        Step 4. Wrap these terms as a JSON output
+        mapper.php is the Web interface of 
+        Mapper class (mapper.class.php)
 
 
 
@@ -35,13 +30,44 @@
     
 --*/
 
+
 header ('Content-Type: text/html; charset=utf-8');
 require 'vendor/autoload.php';
-include 'tokenizer.class.php';
+include_once 'mapper.class.php';
+include_once 'easyRdfAdapter.class.php';
+include_once 'webUtilities.php';
+
+
+$format = getParameter('format');
+$mapping = getParameter('mapping');
+$rdfContent = getParameter('rdfContent');
 
 
 
-class MapperWebAPI
+
+if ($format)
 {
+   //TODO: check if the $format is the supported format
+}
+else
+{
+    $format = 'rdfxml'; //the decault format
+}
+
+if ($mapping)
+{
+    
+
+}
+
+if ($rdfContent)
+{
+    //echo $rdfContent; 
+    $a = new Easy_Rdf_Adapter($rdfContent);
+    $b = new Mapper($a);
+    $c = $b->getQueryTerms();
+    echo json_encode($c);
+
+
 
 }

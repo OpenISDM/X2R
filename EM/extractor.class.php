@@ -38,7 +38,8 @@
 header ('Content-Type: text/html; charset=utf-8');
 include_once 'caseBasedTokenizer.class.php';
 include_once 'delimitBasedTokenizer.class.php';
-include_once 'EasyRdfAdapter.class.php';
+include_once 'easyRdfAdapter.class.php';
+include_once 'mapping.class.php';
 
 class Extractor
 {
@@ -105,11 +106,25 @@ attributes:
         $allUris = $this->graph->getUris();
         //TODO: do actual filtering 
         $filteredUris = $allUris;
+        $result = '';
+        
+        $jsonResult = new Mapping();
+        $mapping = array();
         foreach ($filteredUris as $uri)
         {
-            echo ($this->tokenize($this->uriTail($uri)));
-            echo '<br>';
+            $result = $result.($this->tokenize($this->uriTail($uri))).' ';
+            $entry = new MEntry();
+            $entry->originalURI = $uri;
+            $entry->replacedURI = '';
+            $entry->status = 'N/A'; //TODO: add the status checking 
+            $entry->lineNumbers = ''; //TODO: check the line number
+            array_push($mapping, $entry);
+            
         }
+
+        $jsonResult->mapping = $mapping;
+
+        return $jsonResult;
 
    }
 

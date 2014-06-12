@@ -1,8 +1,9 @@
 <?php
-namespace X2r\Em;
+//namespace X2r\Em;
 
 header ('Content-Type: text/html; charset=utf-8');
 require 'vendor/autoload.php';
+
 
 $file = "../data/MAD_D.rdf";
 

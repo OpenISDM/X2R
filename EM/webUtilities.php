@@ -35,13 +35,19 @@
     
 --*/
 
-header ('Content-Type: text/html; charset=utf-8');
-require 'vendor/autoload.php';
-include 'tokenizer.class.php';
-
-
-
-class ExtractorWebAPI
+function getParameter($para)
 {
+    $notAssign = False;
 
+
+    if(!empty($_POST[$para])) 
+    {
+
+        return $_POST[$para];     
+
+    }
+    else
+    {
+        return $notAssign;
+    }
 }
