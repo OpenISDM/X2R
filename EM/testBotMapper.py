@@ -3,7 +3,7 @@ import requests
 import json
 
 
-url = 'http://localhost/x2r_php/em/extractor.php'
+url = 'http://localhost/x2r_php/em/mapper.php'
 rc = open('../../data/alf.rdf', 'rb').read()
 
 m = {}

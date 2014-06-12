@@ -1,6 +1,7 @@
 <?php
 header ('Content-Type: text/html; charset=utf-8');
 include_once 'EasyRdfAdapter.class.php';
+include_once 'refaRename.class.php';
 class Mapper
 {
   
@@ -24,6 +25,16 @@ class Mapper
 
     protected function getRefactor($refactorType)
     {
+        $refactor;
+        switch($refactorType)
+        {
+            case 'rename':
+            $refactor = new Rename();
+            break;
+            default:
+            $refactor = new Rename();
+        }
+        return $refactor;
 
 
 

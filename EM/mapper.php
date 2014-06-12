@@ -32,9 +32,8 @@
 
 
 header ('Content-Type: text/html; charset=utf-8');
-require 'vendor/autoload.php';
+
 include_once 'mapper.class.php';
-include_once 'easyRdfAdapter.class.php';
 include_once 'webUtilities.php';
 
 
@@ -56,6 +55,17 @@ else
 
 if ($mapping)
 {
+    $changes;
+    $mappingObj = json_decode($mapping)->{'mapping'};
+    foreach ($mappingObj as $mEntry) {
+
+        print_r($mEntry);
+
+    }
+    
+    //$obj = json_decode($mapping);
+    //print_r $obj;
+
     
 
 }
@@ -63,10 +73,10 @@ if ($mapping)
 if ($rdfContent)
 {
     //echo $rdfContent; 
-    $a = new Easy_Rdf_Adapter($rdfContent);
-    $b = new Mapper($a);
-    $c = $b->getQueryTerms();
-    echo json_encode($c);
+    //$a = new Easy_Rdf_Adapter($rdfContent);
+    //$b = new Mapper($a);
+    //$c = $b->getQueryTerms();
+    //echo json_encode($c);
 
 
 
