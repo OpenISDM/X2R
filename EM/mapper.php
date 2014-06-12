@@ -42,7 +42,8 @@ $mapping = getParameter('mapping');
 $rdfContent = getParameter('rdfContent');
 
 
-
+$changes;
+$format;
 
 if ($format)
 {
@@ -55,11 +56,14 @@ else
 
 if ($mapping)
 {
-    $changes;
+
     $mappingObj = json_decode($mapping)->{'mapping'};
+
     foreach ($mappingObj as $mEntry) {
 
-        print_r($mEntry);
+        $oUri = $mEntry->{'originalURI'};
+        $uUri = $mEntry->{'replacedURI'};
+        $change[$oUri] = $uUri;
 
     }
     
@@ -72,11 +76,14 @@ if ($mapping)
 
 if ($rdfContent)
 {
+
     //echo $rdfContent; 
-    //$a = new Easy_Rdf_Adapter($rdfContent);
-    //$b = new Mapper($a);
-    //$c = $b->getQueryTerms();
-    //echo json_encode($c);
+    $era = new Easy_Rdf_Adapter($rdfContent);
+    $m = new Mapper($era);
+    $m->refactoring('rename', $change);
+    $result = $m->serialize($format);
+ 
+    echo $result;
 
 
 

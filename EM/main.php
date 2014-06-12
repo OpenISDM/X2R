@@ -1,6 +1,6 @@
 <?php
 //namespace X2R\EM;
-require 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
 include_once 'extractor.class.php';
 include_once 'mapper.class.php';
 

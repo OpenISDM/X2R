@@ -13,7 +13,7 @@ em1 = {}
 em1['status'] = ''
 em1['term'] = ''
 em1['lineNumbers'] = ''
-em1['originalURI'] = 'http://openisdm.iis.sinica.edu.tw/VR/北投運動中心'
+em1['originalURI'] = 'http://openisdm.com/MAD/property/longitude'
 em1['replacedURI'] = 'http://replace.success1'
 
 
@@ -22,7 +22,7 @@ em2 = {}
 em2['status'] = ''
 em2['term'] = ''
 em2['lineNumbers'] = ''
-em2['originalURI'] = 'http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing'
+em2['originalURI'] = 'http://openisdm.com/MAD/facility/FAC073863'
 em2['replacedURI'] ='http://replace.success2'
 
 
@@ -31,7 +31,7 @@ m['mapping'] = [em1, em2]
 
 mapping = json.dumps(m)
 
-print '\n', 'the mapping input: \n\n', mapping, '\n\n' 
+#print '\n', 'the mapping input: \n\n', mapping, '\n\n' 
 
 payload = {'format': 'rdfxml', 'mapping': mapping, 'rdfContent': rc}
 

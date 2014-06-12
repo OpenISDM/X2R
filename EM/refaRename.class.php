@@ -85,14 +85,16 @@ Class Rename extends Refactor
 
  }
 
-
+/* test script
 
 $file = '../../data/MAD_D.rdf';
 $data = file_get_contents($file);
 $a = new Easy_Rdf_Adapter($data);
-$a->removeTuple('1');
+
 $b = new Rename($a);
-$alf = array('http://openisdm.iis.sinica.edu.tw/VR/中山運動中心' => 'alf', 'http://openisdm.iis.sinica.edu.tw/VR/大同運動中心' => 'c');
+$alf = array('http://openisdm.iis.sinica.edu.tw/VR/中山運動中心' => 'alf', 
+	         'http://openisdm.iis.sinica.edu.tw/VR/大同運動中心' => 'c');
 $g = $b->refactoring($alf);
 echo ($g->serialize('rdfxml'));
 
+end test script */

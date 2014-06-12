@@ -29,10 +29,10 @@ class Mapper
         switch($refactorType)
         {
             case 'rename':
-            $refactor = new Rename();
+            $refactor = new Rename($this->graph);
             break;
             default:
-            $refactor = new Rename();
+            $refactor = new Rename($this->graph);
         }
         return $refactor;
 
