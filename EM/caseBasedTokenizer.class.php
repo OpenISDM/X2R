@@ -13,17 +13,24 @@
     
     File Name:
 
-        extractor.class.php
+        caseBasedTokenizer.class.php
 
     Abstract:
 
-        extractor.class.php is the class for modeling the 
-        URI extracting & transforming process as below. 
-        
-        Step 1. Load the RDF content to a Graph data structure
-        Step 2. Traverse the Graph to finding all the URIs
-        Step 3. Transform these URIs to search friendly terms
-        Step 4. Wrap these terms as a JSON output
+        Case_Based_Tokenizer is a 
+        specialization of Tokenizer. 
+        It realizes a heuristic of tokenization. 
+        That is, case-based heuristic. 
+
+        This heuristic consists of two rules:
+          1. Continuous upper cases treated 
+             as one atomic trunk
+          2. Divide when encountering 
+             case-changes from lower case 
+             to upper case
+        Noth that rule 1 is precedent to rule 2. 
+        For example, "camelCASExample" will be 
+        tokenized as "camel CASE xample." 
 
 
 

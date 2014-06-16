@@ -13,18 +13,20 @@
     
     File Name:
 
-        extractor.class.php
+        delimitBsedTokenizer.class.php
 
     Abstract:
 
-        extractor.class.php is the class for modeling the 
-        URI extracting & transforming process as below. 
-        
-        Step 1. Load the RDF content to a Graph data structure
-        Step 2. Traverse the Graph to finding all the URIs
-        Step 3. Transform these URIs to search friendly terms
-        Step 4. Wrap these terms as a JSON output
+       Delimit_Based_Tokenizer is a 
+        specialization of Tokenizer. 
+        It realizes a heuristic of tokenization. 
+        That is, delimit based heuristic.
 
+        This tokenizer divide word when encountering
+        delimit belonged to the pre-defined delimit set.
+
+        The defined set include the all non-alphet words & 
+        all the non-digit words & the underscore sign, "_".   
 
 
     Authors:      

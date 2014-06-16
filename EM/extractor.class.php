@@ -18,7 +18,7 @@
     Abstract:
 
         extractor.class.php is the class for modeling the 
-        URI extracting & transforming process as below. 
+        URI extracting & analyzing process as below. 
         
         Step 1. Load the RDF content to a Graph data structure
         Step 2. Traverse the Graph to finding all the URIs
@@ -178,7 +178,7 @@ attributes:
     }
 
     //filter heuristics : reachability & well known
-    //get_filter_trial : for traceability
+ 
 
 
 }

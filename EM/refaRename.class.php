@@ -1,4 +1,40 @@
 <?php
+
+/*++
+    Copyright (c) 2014  OpenISDM
+
+    Project Name: 
+
+        OpenISDM VR X2R
+
+    Version:
+
+        0.1 
+    
+    File Name:
+
+        refaRename.class.php
+
+    Abstract:
+
+        Rename is the class implements
+        Refactor class. It is the default
+        refactoring used in X2R project. 
+
+        The rename URI is to replace an existing URI 
+        with a new URI.  
+        
+
+
+
+    Authors:      
+
+        Feng-Pu Yang, fengpuyang@gmail.com
+
+    Major Revision History:
+    
+--*/
+
 header ('Content-Type: text/html; charset=utf-8');
 include_once 'refactor.class.php';
 include_once 'rdfGraph.class.php';
