@@ -13,17 +13,13 @@
     
     File Name:
 
-        mapperwebapi.class.php
+        webUtilities.php
 
     Abstract:
 
-        mapperwebapi.class.php is the class for modeling the 
-        URI extracting & transforming process as below. 
+        webUtilities contains common methods 
+        for implementing simple HTTP POST API
         
-        Step 1. Load the RDF content to a Graph data structure
-        Step 2. Traverse the Graph to finding all the URIs
-        Step 3. Transform these URIs to search friendly terms
-        Step 4. Wrap these terms as a JSON output
 
 
 
