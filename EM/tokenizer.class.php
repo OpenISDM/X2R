@@ -34,7 +34,7 @@
 abstract class Tokenizer
 {
     public abstract function tokenizeArr(array $arr);
-    public abstract function tokenizeStr($arr);
+    public abstract function tokenizeStr($str);
 
     protected function arrConcatenate(array $arrs)
     {
