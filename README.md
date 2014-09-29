@@ -1,4 +1,4 @@
-X2R-EM
+X2R
 ======
 
 X2R is a Tool Set for translating raw data into Linked Data.
