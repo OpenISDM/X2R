@@ -1,0 +1,32 @@
+{
+	"mapping":[
+		{
+			"originalURI":"http://www.recshop.fake/cd/Empire+Burlesque",
+			"replacedURI":"http://dbpedia.org/resource/Category:Empire_of_Japan"
+		},
+		{
+			"originalURI":"http://www.recshop.fake/cd#artist",
+			"replacedURI":"http://dbpedia.org/ontology/Artist"
+		},
+		{
+			"originalURI":"http://www.recshop.fake/cd#country",
+			"replacedURI":"http://dbpedia.org/resource/Category:Country_Liberal_Party_politicians"
+		},
+		{
+			"originalURI":"http://www.recshop.fake/cd#company",
+			"replacedURI":"http://dbpedia.org/resource/Category:Company_towns"
+		},
+		{
+			"originalURI":"http://www.recshop.fake/cd#price",
+			"replacedURI":"http://dbpedia.org/property/price"
+		},
+		{
+			"originalURI":"http://www.recshop.fake/cd#year",
+			"replacedURI":"http://dbpedia.org/resource/Category:Year_lists"
+		},
+		{
+			"originalURI":"http://www.recshop.fake/cd/Hide+your+heart",
+			"replacedURI":"http://dbpedia.org/resource/Category:Hide-and-seek_variants"
+		}
+	]
+}			
