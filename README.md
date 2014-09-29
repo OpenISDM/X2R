@@ -24,4 +24,6 @@ replace the URIs based on the mapping automatically.
 
 The document of Extractor and Mapper is hosted in http://x2r-me.readthedocs.org/en/latest/
 
+The refined document, which covers whole X2R componsnts, is hosting in http://x2r.readthedocs.org/en/latest/. 
+
 N.B. The document is continuously refining.
