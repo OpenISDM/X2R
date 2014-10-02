@@ -59,9 +59,7 @@ class Endpoint
         such as 'configEndpointBaseUrl' and 
         'configTimeToLiveInSeconds'. 
 
-    Parameters:      
-
-    Possible Error Code:
+    Parameters: defer to config-prefix method     
 
     Note (W.I.):
 
@@ -94,6 +92,26 @@ class Endpoint
 
     }
 
+
+
+    /*++
+    Function Name:
+
+        configTimeToLiveInSeconds
+
+    Function Description:
+        
+        This method let you configure the time to live 
+        in the unit of seconds, and return the Endpoint
+        object for method chaining.   
+
+    Parameters: $ttl      
+
+    Return: $this
+ 
+        
+    --*/
+
     public function configTimeToLiveInSeconds($ttl)
     {
         //TODO: Error handling for parameter checking
@@ -103,27 +121,102 @@ class Endpoint
 
     }
 
+    /*++
+    Function Name:
+
+        configEndpointBaseUrl
+
+    Function Description:
+        
+        This method let you configure the base URL 
+        of targeted Endpoint, and return the Endpoint
+        object for method chaining.   
+
+    Parameters: $endpointUrl      
+
+    Return: $this
+ 
+        
+    --*/
+
+
     public function configEndpointBaseUrl($endpointUrl)
     {
-        //TODO: Error handling for parameter checking
-        // EndpointBase::isValidValue($endpointUrl);
-    
-        $this->baseUrl = $endpointUrl;
+        //Error handling for parameter checking
+        if (EndpointBase::isValidValue($endpointUrl))
+        {    $this->baseUrl = $endpointUrl;
+        }
+        else
+        {
+            // Fail-silent (intended no-operation)
+        }
         return $this;
 
     }
 
+    /*++
+    Function Name:
+
+        getBaseUrl
+
+    Function Description:
+        
+        This method let you get the current 
+        configuration of Endpoint's base URL.   
+
+    Parameters: N/A      
+
+    Return: $this->baseUrl
+ 
+        
+    --*/
 
     public function getBaseUrl()
     {
         return $this->baseUrl;
     }
 
+    /*++
+    Function Name:
+
+        getTTL
+
+    Function Description:
+        
+        This method let you get the current 
+        configuration of time-to-live in the 
+        unit of second.   
+
+    Parameters: N/A      
+
+    Return: $this->timeToLive
+ 
+        
+    --*/
+
     public function getTTL()
     {
         return $this->timeToLive;
     }
 
+    /*++
+    Function Name:
+
+        getEndpointStatus
+
+    Function Description:
+        
+        This method let you get the status
+        of currently wrapped Endpoint, where
+        the status means the availablity at 
+        the method requesting time.   
+
+    Parameters: N/A     
+
+    Return: $serverAvaliable
+ 
+        
+    --*/
 
     public function getEndpointStatus()
     {
@@ -135,13 +228,32 @@ class Endpoint
 
         return $serverAvaliable;
 
-
-
     }
 
+    /*++
+    Function Name:
+
+        query
+
+    Function Description:
+        
+        This method let you query Endpoint
+        in SPARQL, and return result in 
+        JSON string.   
+
+    Parameters: $sparqlQueryString      
+
+    Return: $queryResult
+ 
+        
+    --*/
 
     public function query($sparqlQueryString)
     {
+
+        //TODO: implement this method by 
+        //reusing legecy code
+
         $queryResult = '';
         return $queryResult;
     }
