@@ -35,6 +35,7 @@
 
 header ('Content-Type: text/html; charset=utf-8');
 include_once 'endpointbase.class.php';
+error_reporting(0);
 
 class Endpoint
 {
@@ -225,17 +226,32 @@ class Endpoint
         
     --*/
 
-    public function getEndpointStatus()
+    public function getEndpointStatus($baseUrl)
     {
         $serverAvaliable = False;
+		
         //TODO: test the server & return the 
         // server's status
         //
         // Available : return True
         // NotAvailable: return False 
+		
+		$hosts = explode('/', $baseUrl);
+		$host = gethostbyname($hosts[2]); 
+		$port = 80; 
+		$waitTimeoutInSeconds = 1; 
+	
+		$fp = fsockopen($host,$port,$errCode,$errStr,$waitTimeoutInSeconds);
 
+		if($fp){   
+			$serverAvaliable = True;
+		} else {
+		   ;
+		}
+		
+		fclose($fp);
+		
         return $serverAvaliable;
-
     }
 
     /*++
@@ -262,7 +278,16 @@ class Endpoint
         //TODO: implement this method by 
         //reusing legecy code
 
-        $queryResult = '';
+		$ch = curl_init();
+		
+        curl_setopt($ch, CURLOPT_URL, $sparqlQueryString);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLINFO_HEADER_OUT, true);   
+		
+        $queryResult = curl_exec($ch);
+		
+		curl_close($ch);
+		
         return $queryResult;
     }
 
