@@ -114,8 +114,15 @@ class Endpoint
 
     public function configTimeToLiveInSeconds($ttl)
     {
-        //TODO: Error handling for parameter checking
-        // (is_int($ttl) && $ttl > 0);
+        //Error handling for parameter checking
+        if (is_int($ttl) && $ttl > 0)
+        {
+            $this->timeToLive = $ttl;
+        }
+        else
+        {
+             // Fail-silent (intended no-operation)
+        }
 
         return $this;
 
@@ -222,7 +229,8 @@ class Endpoint
     {
         $serverAvaliable = False;
         //TODO: test the server & return the 
-        // status
+        // server's status
+        //
         // Available : return True
         // NotAvailable: return False 
 
