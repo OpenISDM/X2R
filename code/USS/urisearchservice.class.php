@@ -91,7 +91,7 @@ class UriSearchService
 
     protected function searchUris()
     {
-       //for loops
+       //USS container
 
     }
 
