@@ -68,10 +68,18 @@ class UriSearchService
 
     }
 
-    public function setEndpoints($endpoints)
+    public function setFederatedSearch($federatedSearch)
     {
-        $this->endpoints = $endpoints;
+        $this->$federatedSearch = $federatedSearch;
         return $this;
+    }
+
+
+    public function setProcessor($ersultProcessor)
+    {
+        $this->processor = $ersultProcessor;
+        return $this;
+
     }
 
     public function setSelector($selector)
@@ -80,7 +88,6 @@ class UriSearchService
         return $this;
 
     }
-
 
     protected function parseQuery()
     {

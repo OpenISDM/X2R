@@ -17,8 +17,8 @@
 
     Abstract:
 
-        ResultProcessor is the class for filtering 
-        or re-ranking a given result set. 
+        ResultProcessor is the class for 
+        re-ranking a given result set. 
 
     Authors:      
 
@@ -34,33 +34,11 @@
 --*/
 header ('Content-Type: text/html; charset=utf-8');
 
-class ResultProcessor
+class ResultRanker
 {
-
-    public function addOneRefiner($refiner)
+    public function rank($result_set)
     {
-
+        $ranked_result_set;
+        return $ranked_result_set;
     }
-
-    public function addOneRanker($ranker)
-    {
-
-    }
-
-
-    public function addConfiguration($config)
-    {
-
-    }
-
-    public function getConfiguration()
-    {
-
-    }
-
-    public function process()
-    {
-
-    }
-
 }
