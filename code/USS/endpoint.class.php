@@ -35,6 +35,7 @@
 
 header ('Content-Type: text/html; charset=utf-8');
 include_once 'endpointbase.class.php';
+error_reporting(0);
 
 class Endpoint
 {
@@ -218,26 +219,131 @@ class Endpoint
         the status means the availablity at 
         the method requesting time.   
 
-    Parameters: N/A     
+    Parameters: $baseUrl   
 
     Return: $serverAvaliable
  
         
     --*/
 
-    public function getEndpointStatus()
+    public function getEndpointStatus($baseUrl)
     {
         $serverAvaliable = False;
+		
         //TODO: test the server & return the 
         // server's status
         //
         // Available : return True
         // NotAvailable: return False 
+		
+		$hosts = explode('/', $baseUrl);
+		$host = gethostbyname($hosts[2]); 
+		$port = 80; 
+		$waitTimeoutInSeconds = 1; 
+	
+		$fp = fsockopen($host,$port,$errCode,$errStr,$waitTimeoutInSeconds);
 
+		if($fp){   
+			$serverAvaliable = True;
+		} else {
+		   ;
+		}
+		
+		fclose($fp);
+		
         return $serverAvaliable;
-
     }
+	
+    /*++
+        Function Name:
 
+            composeSparqlQuery
+
+        Function Description:
+
+            This function compose query according to endpoints
+
+        Parameters:
+
+            string term - The term of interest to search.
+
+            string dataSourceName - The name of data source.
+
+            string limit - The number of how many result we want to show.
+
+            array filters - The array of filters setting.
+
+        Returned Value:
+
+            If the function returned normally, the returned is a sparql query;
+            otherwise, the returned value is null.
+
+        Possible Error Code or Exception:
+
+    --*/
+	
+	public function composeSparqlQuery($term, $dataSourceName = '', $limit = 10, $filters = array(''))
+	{
+		 //
+        // ToDo: 1. Offset
+        //       2. Order by
+        //       3. Variable check
+        //       4. Terms with spaces
+        //
+
+        $sparqlQueryString = '';
+
+        //
+        // Compose Query according to endpoints
+        // Setting Data Source Name (DSN)
+        //
+
+        if (!empty($dataSourceName)) {
+            
+            $sparqlQueryString = "SELECT DISTINCT ?s ?o FROM <".$dataSourceName."> WHERE { \n";
+
+        } else {
+            $sparqlQueryString = "SELECT DISTINCT ?s ?o WHERE { \n";
+        }
+        
+        $sparqlQueryString .= "?s <http://www.w3.org/2000/01/rdf-schema#label> ?o . \n";
+		
+        $sparqlQueryString .= "?o bif:contains \"".$term."\" . \n";
+
+        //
+        // For search both lower-case and upper-case ex: Typhoon and typhoon
+        //
+
+        if (ctype_upper(substr($term, 0, 1))) {
+            $sparqlQueryString .= "FILTER ( regex(str(?o), '^".$term."') || regex(str(?o), '^".strtolower($term)."')) . \n";
+        } else {
+            $sparqlQueryString .= "FILTER ( regex(str(?o), '^".$term."') || regex(str(?o), '^".ucfirst(strtolower($term))."')) . \n";
+        }
+
+        //
+        // Customized filters
+        //
+
+        if (!empty($filters)) {
+            
+            foreach ($filters as $key => $filterString) {
+
+                $sparqlQueryString .= "FILTER (!regex(str(?s), '^".$filterString."')) . \n";
+            }
+        }
+        
+        $sparqlQueryString .= "FILTER (lang(?o) = 'en') . \n";
+        $sparqlQueryString .= "} \n";
+
+        //
+        // ToDo: Implement offset here
+        //
+
+        $query .= "Limit ".$limit." \n";
+
+        return $sparqlQueryString;
+	}
+	
     /*++
     Function Name:
 
@@ -260,9 +366,36 @@ class Endpoint
     {
 
         //TODO: implement this method by 
-        //reusing legecy code
+        //reusing legacy code
+		
+		$params = array(
+            'default-graph-uri' => rtrim($dataSourceName, '/'),
+            'should-sponge' => 'soft',
+            'query' => $sparqlQueryString,
+            'debug' => 'on',
+            'timeout' => '30000',
+            'output' => $output,
+            'save' => 'display',
+            'fname' => ''
+        );
 
-        $queryResult = '';
+        $querypart = '?';
+        foreach ($params as $name => $value) {
+            $querypart = $querypart . $name . '=' . urlencode($value) . '&';
+        }
+        
+        $sparqlURL = $baseURL . $querypart;   
+		
+		$ch = curl_init();
+		
+        curl_setopt($ch, CURLOPT_URL, $sparqlURL);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLINFO_HEADER_OUT, true);   
+		
+        $queryResult = curl_exec($ch);
+		
+		curl_close($ch);
+		
         return $queryResult;
     }
 
@@ -271,11 +404,15 @@ class Endpoint
 
 
 /*  Usage Example:
-
+$filters;
 $ep = new Endpoint();
-$ep->configEndpointBaseUrl('http://dbpedia.sparql...')
+$ep->configEndpointBaseUrl('http://dbpedia.org/sparql/')
    ->configTimeToLiveInSeconds(1);
 
 $baseUrl = $ep->getBaseUrl();
-echo $a;
+$dataSourceName = rtrim($baseUrl, 'sparql/');
+$sparqlQueryString = composeSparqlQuery("typhoon", $dataSourceName, 10, $filters);
+$result = query($sparqlQueryString, $baseUrl, $dataSourceName,'json');
+
+echo $result;
 /*
