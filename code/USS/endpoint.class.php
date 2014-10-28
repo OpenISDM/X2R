@@ -34,7 +34,12 @@
 --*/
 
 header ('Content-Type: text/html; charset=utf-8');
+
 include_once 'endpointbase.class.php';
+include_once 'endpoint/dbpedia.php';
+include_once 'endpoint/linkedgeodata.php';
+
+error_reporting(0);
 
 class Endpoint
 {
@@ -218,30 +223,97 @@ class Endpoint
         the status means the availablity at 
         the method requesting time.   
 
-    Parameters: N/A     
+    Parameters: $baseUrl   
 
     Return: $serverAvaliable
  
         
     --*/
 
-    public function getEndpointStatus()
+    public function getEndpointStatus($baseUrl)
     {
         $serverAvaliable = False;
+		
         //TODO: test the server & return the 
         // server's status
         //
         // Available : return True
         // NotAvailable: return False 
+		
+		$hosts = explode('/', $baseUrl);
+		$host = gethostbyname($hosts[2]); 
+		$port = 80; 
+		$waitTimeoutInSeconds = 1; 
+	
+		$fp = fsockopen($host,$port,$errCode,$errStr,$waitTimeoutInSeconds);
 
+		if($fp){   
+			$serverAvaliable = True;
+		} else {
+		   ;
+		}
+		
+		fclose($fp);
+		
         return $serverAvaliable;
-
     }
+	
+    /*++
+        Function Name:
 
+            composeSparqlQuery
+
+        Function Description:
+
+            This function compose query according to endpoints
+
+        Parameters:
+
+            string term - The term of interest to search.
+
+            string dataSourceName - The name of data source.
+
+            string limit - The number of how many result we want to show.
+
+            array filters - The array of filters setting.
+
+        Returned Value:
+
+            If the function returned normally, the returned is a sparql query;
+            otherwise, the returned value is null.
+
+        Possible Error Code or Exception:
+
+    --*/
+	
+	public function composeSparqlQuery($term, $dataSourceName = '', $limit = 10, $filters = array(''))
+	{
+		$sparqlQueryString = '';
+		
+		switch($dataSourceName)
+		{
+			case 'http://dbpedia.org/':
+				$ep = new dbpedia();
+				
+				$sparqlQueryString = $ep->composeQuery($term, $dataSourceName, $limit, $filters);
+				
+				break;
+			
+			case 'http://linkedgeodata.org/':
+				$ep = new linkedgeodata();
+				
+				$sparqlQueryString = $ep->composeQuery($term, $dataSourceName, $limit, $filters);
+				
+				break;
+		}
+		
+		return $sparqlQueryString;
+	}
+	
     /*++
     Function Name:
 
-        query
+        performQuery
 
     Function Description:
         
@@ -256,14 +328,28 @@ class Endpoint
         
     --*/
 
-    public function query($sparqlQueryString)
+    public function performQuery($sparqlQueryString,$dataSourceName)
     {
-
-        //TODO: implement this method by 
-        //reusing legecy code
-
-        $queryResult = '';
-        return $queryResult;
+		$queryResult = '';
+		
+		switch($dataSourceName)
+		{
+			case 'http://dbpedia.org/':
+				$ep = new dbpedia();
+				
+				$queryResult = $ep->query($sparqlQueryString);
+				
+				break;
+			
+			case 'http://linkedgeodata.org/':
+				$ep = new linkedgeodata();
+				
+				$queryResult = $ep->query($sparqlQueryString);
+				
+				break;
+		}
+		
+		return $queryResult;
     }
 
 
@@ -271,11 +357,15 @@ class Endpoint
 
 
 /*  Usage Example:
-
+$filters;
 $ep = new Endpoint();
-$ep->configEndpointBaseUrl('http://dbpedia.sparql...')
+$ep->configEndpointBaseUrl('http://dbpedia.org/sparql/')
    ->configTimeToLiveInSeconds(1);
 
 $baseUrl = $ep->getBaseUrl();
-echo $a;
+$dataSourceName = rtrim($baseUrl, 'sparql/');
+$sparqlQueryString = composeSparqlQuery("typhoon", $dataSourceName, 10, $filters);
+$result = query($sparqlQueryString, $baseUrl, $dataSourceName,'json');
+
+echo $result;
 /*

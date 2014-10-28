@@ -41,16 +41,14 @@ class UriSearchResults
 
     private $resultSet = [];
 
-    public function addOneResult($uri, $descr, $ep, $scores)
+    public function addOneResult($dataSourceName, $searchedResult)
     {
-        $result = 
-                 [
-                  "description" ==> $descr,
-                  "endpoint" ==> $ep,
-                  "scores" ==> $scores
-                 ];
+        $result  = array(
+                        'dataSourceName' => $dataSourceName,
+                        'response' => json_decode($searchedResult)
+                    );
 
-        $this->resultSet[$uri] = $result;
+        $this->resultSet['data'][] = $result;
 
     }
 
