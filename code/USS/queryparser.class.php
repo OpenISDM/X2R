@@ -26,8 +26,9 @@
 
     Authors:      
 
-        Gentry Yao,   polo90406@gmail.com
         Feng-Pu Yang, fengpuyang@gmail.com
+        Gentry Yao,   polo90406@gmail.com
+        
 
     See Also:
 

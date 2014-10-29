@@ -34,12 +34,18 @@
     
 --*/
 header ('Content-Type: text/html; charset=utf-8');
+include_once 'ussContainer.class.php';
 
 class UriSearchService
 {
 
     function UriSearchService()
     {
+        $ussContainer = new UssContainer();
+        $this->setRefiner($ussContainer->getRefiner("default"));
+        $this->setParser($ussContainer->getParser("default"));
+        $this->setProcessor($ussContainer->getProcessor("default"));
+        $this->setSelector($ussContainer->getSelector("default"));
 
     }
 
@@ -75,7 +81,7 @@ class UriSearchService
     }
 
 
-    public function setProcessor($ersultProcessor)
+    public function setProcessor($rsultProcessor)
     {
         $this->processor = $ersultProcessor;
         return $this;
