@@ -37,7 +37,7 @@ header ('Content-Type: text/html; charset=utf-8');
 class ResultProcessor
 {
 
-    public function addOneRefiner($refiner)
+    public function addOneFilter($filter)
     {
 
     }

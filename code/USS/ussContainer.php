@@ -75,8 +75,11 @@ class UssContainer
         switch($selectorId)
         {
             case 'default':
-                $selector = $defaultSelector();
-                
+                $selector = $defaultSelector;
+                break;
+
+            case 'interactive':
+                $selector = $interactiveSelector;
                 break;
             
         }
@@ -91,7 +94,7 @@ class UssContainer
         switch($selectorId)
         {
             case 'default':
-                $ranker = $defaultRanker();
+                $ranker = $defaultRanker;
                 
                 break;
             
@@ -108,8 +111,11 @@ class UssContainer
         switch($refinerId)
         {
             case 'default':
-                $refiner = $defaultRefiner();
-                
+                $refiner = $defaultRefiner;
+            
+            case 'interactive':
+                $refiner = $interactiveRefiner;
+
                 break;
             
         }        
