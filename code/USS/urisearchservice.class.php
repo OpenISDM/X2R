@@ -34,7 +34,7 @@
     
 --*/
 header ('Content-Type: text/html; charset=utf-8');
-include_once 'ussContainer.class.php';
+include_once 'UssContainer.class.php';
 
 class UriSearchService
 {
@@ -46,6 +46,7 @@ class UriSearchService
         $this->setParser($ussContainer->getParser("default"));
         $this->setProcessor($ussContainer->getProcessor("default"));
         $this->setSelector($ussContainer->getSelector("default"));
+        $this->setResultRanker($ussContainer->getResultRanker("default"))
 
     }
 
@@ -55,10 +56,10 @@ class UriSearchService
 
         
         // 1. parse the search query
-        $searchCommand = $this->parseQuery($queryString);
+        $sparqlQuery = $this->parseQuery($queryString);
         
         // 2. execute the search task based on the query
-        $resultSet = $this->searchUris($searchCommand);
+        $resultSet = $this->searchUris($sparqlQuery); 
 
         // 3. select one fittest result
         $result = $this->selectOneResult($resultSet);
@@ -76,7 +77,7 @@ class UriSearchService
 
     public function setFederatedSearch($federatedSearch)
     {
-        $this->$federatedSearch = $federatedSearch;
+        $this->federatedSearch = $federatedSearch;
         return $this;
     }
 
@@ -95,22 +96,27 @@ class UriSearchService
 
     }
 
-    protected function parseQuery()
+    protected function parseQuery($query)
     {
-        $this->parser->parse();
+        $command = $this->parser->parse($query);
+        return $command;
 
     }
 
 
-    protected function searchUris()
+    protected function searchUris($sparqlQuery)
     {
-       //USS container
+       $resultSet = $this->federatedSearch.search($sparqlQuery);
+       return $resultSet;
 
     }
 
 
-    protected function selectOneResult()
+
+    protected function selectOneResult($resultSet)
     {
+        $result = $this->selector.select();
+        return $result;
 
     }
 

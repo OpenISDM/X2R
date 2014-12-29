@@ -13,10 +13,13 @@
     
     File Name:
 
-        ussContainer.class.php
+        UssContainer.class.php
 
     Abstract:
-
+        
+        UssContainer class helps developers manage
+        complex dependencies introducing by existing 
+        or future added extensions. 
         
 
     Authors:   
@@ -35,10 +38,11 @@
 --*/
 
 header ('Content-Type: text/html; charset=utf-8');
-include_once 'endpoint.class.php';
-include_once 'rankers/defaultRanker.class.php';
-include_once 'refiners/defaultRefiner.class.php';
-include_once 'selectors/defaultSelector.class.php';
+include_once 'Endpoint.class.php';
+include_once 'parsers/DefaultParser.class.php'
+include_once 'rankers/DefaultRanker.class.php';
+include_once 'refiners/DefaultRefiner.class.php';
+include_once 'selectors/DefaultSelector.class.php';
 
 class UssContainer
 {

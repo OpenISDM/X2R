@@ -37,9 +37,10 @@
     Major Revision History:
     
 --*/
-include('../queryparser.class.php');
+include('../QueryParser.php');
 header ('Content-Type: text/html; charset=utf-8');
 
-class DefaultParser extends QueryParser
+class DefaultParser implements QueryParser
+{
 
 }

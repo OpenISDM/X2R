@@ -36,9 +36,30 @@
     Major Revision History:
     
 --*/
-include('../queryrefiner.class.php');
+include('../QuerySelector.php');
 
-class InteractiveSelector extends QuerySelector
+class InteractiveSelector implements QuerySelector
 {
+        public function setRanker($ranker)
+    {
+        $this->ranker = $ranker;
+
+    }
+
+
+    public function select($resultSet)
+    {
+        $rankedResultSet = $this->ranker.rank($resultSet);
+        $result = $this->userInteract($resultSet);
+        
+        return $result;
+    }
+
+    private function userInteract($resultSet)
+    {
+
+        //TODO: User interaction Hook
+        return $result;
+    }
 
 }

@@ -17,7 +17,7 @@
 
     Abstract:
 
-        endpointbase.class.php is the class for enumerating
+        EndpointBase is the class for enumerating
         configurations of endpoints' base URLs. It is used 
         in initializing Endpoint object. 
 
@@ -32,7 +32,7 @@
     Major Revision History:
     
 --*/
-include_once 'basicenum.class.php';
+include_once 'Basicenum.class.php';
 
 abstract class EndpointBase extends BasicEnum
 

@@ -36,9 +36,9 @@
     Major Revision History:
     
 --*/
-include('../queryrefiner.class.php');
+include('../QueryRefiner.php');
 
-class DefaultRefiner extends QueryRefiner
+class DefaultRefiner implements QueryRefiner
 {
 
 }

@@ -35,9 +35,9 @@
 
 header ('Content-Type: text/html; charset=utf-8');
 
-include_once 'endpointbase.class.php';
-include_once 'endpoint/dbpedia.php';
-include_once 'endpoint/linkedgeodata.php';
+include_once 'EndpointBase.php';
+include_once 'endpoint/Dbpedia.php';
+include_once 'endpoint/Linkedgeodata.php';
 
 error_reporting(0);
 

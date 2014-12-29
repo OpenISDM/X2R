@@ -32,7 +32,7 @@
     
 --*/
 header ('Content-Type: text/html; charset=utf-8');
-require_once 'vendor/autoload.php';
+require_once '../vendor/autoload.php';
 include_once 'rdfGraph.class.php';
 
 Class Easy_Rdf_Adapter extends rdfGraph

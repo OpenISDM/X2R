@@ -31,7 +31,7 @@
 --*/
 
 header ('Content-Type: text/html; charset=utf-8');
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 include_once 'extractor.class.php';
 include_once 'easyRdfAdapter.class.php';
 include_once 'webUtilities.php';
