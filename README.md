@@ -1,4 +1,4 @@
-X2R
+X2R [![Documentation Status](https://readthedocs.org/projects/openisdm-x2r/badge/?version=latest)](https://readthedocs.org/projects/openisdm-x2r/?badge=latest)
 ======
 
 X2R is a Tool Set for translating raw data into Linked Data.
