@@ -17,7 +17,7 @@
 
     Abstract:
 
-        endpointbase.class.php is the class for enumerating
+        EndpointBase is the class for enumerating
         configurations of endpoints' base URLs. It is used 
         in initializing Endpoint object. 
 
@@ -32,7 +32,7 @@
     Major Revision History:
     
 --*/
-include_once 'basicenum.class.php';
+include_once 'Basicenum.class.php';
 
 abstract class EndpointBase extends BasicEnum
 
@@ -49,12 +49,12 @@ abstract class EndpointBase extends BasicEnum
     //      
     //      Each tested Endpoint will be included in 
     //      the following consts. 
-    const DBPEDIA = 'http://dbpedia.sparql...';
-    const DATAGOV = 'http://...';
+    const DBPEDIA = 'http://dbpedia.org/sparql/';
+    const LGDO = 'http://linkedgeodata.org/sparql/';
 }
 
 /* Usage Example:
-   echo EndpointBase::DATAGOV;
+   echo EndpointBase::LGDO;
    echo EndpointBase::DBPEDIA;
 */
 

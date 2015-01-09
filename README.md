@@ -1,4 +1,4 @@
-X2R
+X2R [![Documentation Status](https://readthedocs.org/projects/openisdm-x2r/badge/?version=latest)](https://readthedocs.org/projects/openisdm-x2r/?badge=latest)
 ======
 
 X2R is a Tool Set for translating raw data into Linked Data.
@@ -24,6 +24,6 @@ replace the URIs based on the mapping automatically.
 
 The document of Extractor and Mapper is hosted in http://x2r-me.readthedocs.org/en/latest/
 
-The refined document, which covers whole X2R componsnts, is hosting in http://x2r.readthedocs.org/en/latest/. 
+The refined document, which covers whole X2R componsnts, is hosting in http://openisdm-x2r.readthedocs.org/en/latest/. 
 
 N.B. The document is continuously refining.

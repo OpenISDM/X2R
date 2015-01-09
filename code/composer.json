@@ -1,6 +1,6 @@
 {
     "require": {
         "easyrdf/easyrdf": "*",
-	    "phpunit/phpunit": "4.1.*"
+	    "phpunit/phpunit": "4.3.*"
     }
 }
