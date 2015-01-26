@@ -1,0 +1,13 @@
+SparqlURL: http://dbpedia.org/sparql/?default-graph-uri=http%3A%2F%2Fdbpedia.org&should-sponge=soft&query=SELECT+DISTINCT+%3Fs+%3Fo+FROM+%3Chttp%3A%2F%2Fdbpedia.org%3E+WHERE+%7B+%0A%3Fs+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23label%3E+%3Fo+.+%0A%3Fo+bif%3Acontains+%22typhoon%22+.+%0AFILTER+%28+regex%28str%28%3Fo%29%2C+%27%5Etyphoon%27%29+%7C%7C+regex%28str%28%3Fo%29%2C+%27%5ETyphoon%27%29%29+.+%0AFILTER+%28lang%28%3Fo%29+%3D+%27en%27%29+.+%0A%7D+%0ALimit+10+%0A&debug=on&timeout=30000&output=application%2Fjson&save=display&fname=&\r\nResponse: 
+{ "head": { "link": [], "vars": ["s", "o"] },
+  "results": { "distinct": false, "ordered": true, "bindings": [
+    { "s": { "type": "uri", "value": "http://wikidata.dbpedia.org/resource/Q140588" }	, "o": { "type": "literal", "xml:lang": "en", "value": "typhoon" }},
+    { "s": { "type": "uri", "value": "http://dbpedia.org/resource/Category:Typhoon_shelters_in_Hong_Kong" }	, "o": { "type": "literal", "xml:lang": "en", "value": "Typhoon shelters in Hong Kong" }},
+    { "s": { "type": "uri", "value": "http://dbpedia.org/resource/Category:Typhoon-class_submarines" }	, "o": { "type": "literal", "xml:lang": "en", "value": "Typhoon-class submarines" }},
+    { "s": { "type": "uri", "value": "http://dbpedia.org/resource/Typhoon-class_submarines" }	, "o": { "type": "literal", "xml:lang": "en", "value": "Typhoon-class submarines" }},
+    { "s": { "type": "uri", "value": "http://dbpedia.org/resource/Typhoon" }	, "o": { "type": "literal", "xml:lang": "en", "value": "Typhoon" }},
+    { "s": { "type": "uri", "value": "http://wikidata.dbpedia.org/resource/Q376070" }	, "o": { "type": "literal", "xml:lang": "en", "value": "Typhoon" }},
+    { "s": { "type": "uri", "value": "http://wikidata.dbpedia.org/resource/Q486030" }	, "o": { "type": "literal", "xml:lang": "en", "value": "Typhoon" }},
+    { "s": { "type": "uri", "value": "http://wikidata.dbpedia.org/resource/Q161781" }	, "o": { "type": "literal", "xml:lang": "en", "value": "Typhoon" }},
+    { "s": { "type": "uri", "value": "http://wikidata.dbpedia.org/resource/Q626239" }	, "o": { "type": "literal", "xml:lang": "en", "value": "Typhoon" }},
+    { "s": { "type": "uri", "value": "http://wikidata.dbpedia.org/resource/Q1329329" }	, "o": { "type": "literal", "xml:lang": "en", "value": "Typhoon" }} ] } }\r\nInfo: Array\r\n

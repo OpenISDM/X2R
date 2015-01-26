@@ -85,8 +85,8 @@ interface QueryParser
     --*/
 
 
-    public function parse($queryString)
+    public function parse($sites,$term,$output,$limit)
     {
-        
-    }
+	
+	}
 }

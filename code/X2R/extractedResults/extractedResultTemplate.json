@@ -1,0 +1,26 @@
+{
+    "metadata": [],
+    "mappings": [
+        {
+            "URI": "http://www.yourdomain.com/typhoon",
+            "term": "typhoon",
+            "replacedURI": "",
+            "lineNumber": "5",
+            "status": "alive"
+        },
+        {
+            "URI": "http://www.yourdomain.com/rainfall",
+            "term": "rainfall",
+            "replacedURI": "",
+            "lineNumber": "7",
+            "status": "alive"
+        },
+        {
+            "URI": "http://www.yourdomain.com/taiwan",
+            "term": "taiwan",
+            "replacedURI": "",
+            "lineNumber": "5",
+            "status": "alive"
+        }
+    ]
+}

@@ -1,0 +1,50 @@
+http://dbpedia.org/sparql/?default-graph-uri=http%3A%2F%2Fdbpedia.org&query=SELECT+DISTINCT+%3Fs+%3Fo+FROM+%3Chttp%3A%2F%2Fdbpedia.org%2F%3EWHERE+{+%0D%0A%3Fs+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23label%3E+%3Fo+.+%0D%0A%3Fo+bif%3Acontains+%22typhoon%22.+%0D%0AFILTER+%28regex%28str%28%3Fo%29%2C+%27^typhoon%27%29%29+.+%0D%0AFILTER+%28lang%28%3Fo%29+%3D+%27en%27%29+.+%0D%0A}+%0D%0ALimit+100+&format=text%2Fhtml&timeout=30000&debug=on
+
+
+http://dbpedia.org/sparql/?default-graph-uri=http://dbpedia.org&query=SELECT DISTINCT ?s ?o FROM <http://dbpedia.org/>WHERE { 
+?s <http://www.w3.org/2000/01/rdf-schema#label> ?o . 
+?o bif:contains "typhoon". 
+FILTER (regex(str(?o), '^typhoon')) . 
+FILTER (lang(?o) = 'en') . 
+} 
+Limit 100 &format=text/html&timeout=30000&debug=on
+
+
+http://dbpedia.org/sparql/?default-graph-uri=http://dbpedia.org&query=SELECT DISTINCT ?s ?o FROM <http://dbpedia.org/> WHERE { 
+?s <http://www.w3.org/2000/01/rdf-schema#label> ?o . 
+?o bif:contains "typhoon". 
+FILTER (regex(str(?o), '^typhoon')) . 
+FILTER (lang(?o) = 'en') . 
+} 
+Limit 100 
+&debug=on&timeout=30000&format=application/json&
+
+function GetQueryURL($term, $endpointCodeName)
+    {
+        $term = "\"".$term."\"" ;
+        //$endpoint = "http://dbpedia.org/sparql?";
+        $item = "endpointURL";
+        $endpointURL = GetEndpointParam($endpointCodeName, $item);
+        $defaultGraphURI= "default-graph-uri=";
+        
+        // Customize for endpoints
+        $queryItem = "
+        SELECT DISTINCT ?s ?o   WHERE { 
+        ?s  <http://www.w3.org/2000/01/rdf-schema#label> ?o . 
+        ?o bif:contains ".$term.".  
+        FILTER (regex(str(?o), '^typhoon')).  
+        FILTER (!regex(str(?s), '^http://dbpedia.org/resource/Category:')). 
+        FILTER (!regex(str(?s), '^http://dbpedia.org/resource/List')).
+        FILTER (!regex(str(?s), '^http://sw.opencyc.org/')). 
+        FILTER (lang(?o) = 'en').   
+        }   
+        Limit 10
+        ";
+        
+        $query = "query=".urlencode($queryItem);
+        $parameters = "format="."text/html"."&"."timeout=0";
+        //$parameter = "format="."RDF/XML"."&"."timeout=0";
+
+        $compsedURL = $endpointURL.$defaultGraphURI."&".$query."&".$parameters;
+        return $compsedURL;
+    }

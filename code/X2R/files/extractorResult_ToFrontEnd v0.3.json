@@ -1,0 +1,29 @@
+{    
+    "mapping": [
+        {
+            "originalURI": "http://www.yourdomain.com/typhoon",
+            "term": "typhoon",
+            "replacedURI": "",
+            "lineNumbers": "5",
+            "status": "0",
+            "mappingDataID": "101"
+
+        },
+        {
+            "originalURI": "http://www.yourdomain.com/rainfall",
+            "term": "rainfall",
+            "replacedURI": "",
+            "lineNumbers": "1,2,3",
+            "status": "1",
+            "mappingDataID": "102"
+        },
+        {
+            "originalURI": "http://www.yourdomain.com/taiwan",
+            "term": "taiwan",
+            "replacedURI": "",
+            "lineNumbers": "5,6,7",
+            "status": "1",
+            "mappingDataID": "103"
+        }
+    ]
+}

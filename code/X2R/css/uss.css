@@ -1,0 +1,28 @@
+.body {
+    text-shadow: 0px 0px 1px #909090 !important;
+    }
+
+/* For table display*/
+.extractorTable {
+    height: 400px !important;
+    overflow: auto;
+}
+
+.termsTable {  
+    height: 200px !important;
+    overflow: auto;
+}
+
+.uriTable {
+    height: 400px !important;
+    overflow: auto;
+}
+
+/* For SyntaxHighter*/
+.height_600px_class {
+	height: 400px;
+}
+
+.overflow_y_hidden_class {
+	overflow-y: hidden !important;
+}

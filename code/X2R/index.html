@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<!-- saved from url=(0040)http://getbootstrap.com/examples/navbar/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="http://getbootstrap.com/docs-assets/ico/favicon.png">
+
+    <title>Navbar Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="http://getbootstrap.com/examples/navbar/navbar.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+      
+      window.onload = function(){
+      console.log("loading ready...");
+
+      $("#btn-submit").click(function(){      
+      
+      // Clear table body each time
+      $('table').empty();
+
+      // Get input parameters from user
+      var q = $('input[name="q"]').val();
+      var output = $('#output').val();
+
+      var term;
+      var thead;
+      var tbody;
+      var tr;
+      var returnData;
+      var heads = new Array();
+      var body = new Array();
+ 
+      // alert("p: " + p + " output: " + output);
+      // $.getJSON( "./search.php", { "q": p, "output": output }, "json")    
+      //$.getJSON( "./search.php", { "q": p, "output": output })    
+      $.getJSON( "../USS/USSmain.php", { "q": q, "output": "application/json" })    
+       .done(function(data){
+        // alert(data);
+      console.log(data);
+
+      if (output == "application/json") {
+        // Print directly
+
+        document.write(data);
+
+      } 
+      else if (output == "text/html") {
+        // Parse JSON to html table:
+        term = data["term"];
+        returnData = data["data"];
+        
+        console.log("Term: " + term);
+        
+        // For data returned form each source
+        for (var i = 0; i < returnData.length; i++) {
+          var dataSourceName = returnData[i]["dataSourceName"];
+          console.log(dataSourceName);
+          
+          if(returnData[i]["response"] != null) {
+            
+            // Table head
+            thead = "<thead>" + "<tr>";
+            for (var j = 0; j < returnData[i]["response"]["head"]["vars"].length; j++) {
+              heads[j] = returnData[i]["response"]["head"]["vars"][j];            
+              thead += "<th>" + heads[j] + "</th>";
+            }
+
+            thead += "<th>" + "Data Source Name" + "</th>";
+
+            thead += "</tr>" + "</thead>";
+            console.log(thead);
+
+            // // Table content
+            tbody = "<tbody>";
+            for (var j = 0; j < returnData[i]["response"]["results"]["bindings"].length; j++) {
+              tbody += "<tr>" ;
+              for (var k = 0; k < heads.length; k++) {
+                body[k] = returnData[i]["response"]["results"]["bindings"][j][heads[k]]["value"];
+                tbody += "<td>" + body[k] + "</td>" ;
+                console.log(returnData[i]["response"]["results"]["bindings"][j][heads[k]]["value"]);
+              }
+              tbody += "<td>" + dataSourceName + "</td>" ;
+              tbody += "</tr>";             
+            }
+            
+            tbody += "</tbody>";
+              
+            console.log(thead);
+            console.log(tbody);
+            $('table').append(thead).append(tbody);
+
+          }else{
+            
+            alert("Response is null");
+          
+          } // End of if
+      
+      } // End of outter for loop
+      }
+
+      
+        });
+      
+        // Stop form submit button do not submit form to server and force to use AJAX to submit form.
+       return false;
+      });
+    
+    };
+    
+    
+    </script>
+
+  <style type="text/css"></style><script type="text/javascript" async="" src="./index_files/vglnk.js"></script><script type="text/javascript" src="chrome-extension://bfbmjmiodbnnpllbbbfblcplfjjepjdn/js/injected.js"></script><style type="text/css">body {
+ text-shadow: 0px 0px 1px #909090 !important;
+}</style></head>
+
+
+  <body style="">
+
+    <div class="container">
+
+      <!-- Static navbar -->
+      <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">URI Search Service</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="index.html">URI Search</a></li>
+            <li class=""><a href="x2rConverterIndex.php">X2R</a></li>
+            <li class=""><a href="http://openisdm.iis.sinica.edu.tw/">OpenISDM</a></li>
+
+
+            <!-- <li><a href="">Link</a></li>
+            <li><a href="">Link</a></li> -->            
+          </ul>          
+        </div><!--/.nav-collapse -->
+      </div>
+
+      <!-- Main component for a primary marketing message or call to action -->
+        
+        <!-- <form class="form-horizontal" role="form" action="search.php" method="get"> -->
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Term</label>            
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="terms" placeholder="Enter text to search" name="q" id="q">
+              <!-- <input type="hidden" name="sites" value="dbp">
+              <input type="hidden" name="output" value="application">            
+              <input type="hidden" name="limit" value="10"> -->
+            </div>
+          </div>
+
+          <div class="form-group">          
+            <label class="col-sm-4 control-label">Output</label>
+              <div class="col-sm-4">
+                <select class="form-control" name="output" id="output">
+                  <option value="text/html">text/html</option>
+                  <option value="application/json">application/json</option>            
+                </select>
+              </div>              
+          </div>
+          <div class="form-group">
+            <div class="col-sm-8"></div>
+            <div class="col-sm-2">
+              <button type="submit" id="btn-submit" class="btn btn-primary">Search</button>
+            </div>
+          </div>
+        </form>
+
+
+          <!-- <div class="form-group">
+            <label class="col-sm-2 control-label">output</label>
+              <div class="col-sm-2">
+                <select class="form-control" name="output">
+                  <option>text/html</option>
+                  <option>application/json</option>            
+                </select>
+              </div>
+          </div> -->
+         <!--  <div class="form-group">
+            <div class="col-sm-6"></div>
+            <div class="col-sm-2">
+              <button type="submit" id="btn-submit" class="btn btn-primary">Search</button>
+            </div>
+          </div> -->
+        <!-- </form> -->
+      </div>
+    </div> <!-- /container -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-9" role="dataView">
+      <table class="table table-hover"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./index_files/jquery-1.10.2.min.js"></script>
+    <script src="./index_files/bootstrap.min.js"></script>
+</body>
+</html>

@@ -35,6 +35,7 @@
 --*/
 header ('Content-Type: text/html; charset=utf-8');
 include_once 'UssContainer.class.php';
+include_once 'sparqlRepositoryOperationStatus.php';
 
 class UriSearchService
 {
@@ -51,21 +52,21 @@ class UriSearchService
     }
 
 
-    public function uriSearch($queryString)
+    public function uriSearch($sites,$output,$limit,$term)
     {
 
         
         // 1. parse the search query
-        $sparqlQuery = $this->parseQuery($queryString);
+        $command = $this->parseQuery($sites,$term,$output,$limit);
         
         // 2. execute the search task based on the query
-        $resultSet = $this->searchUris($sparqlQuery); 
+        $resultSet = $this->searchUris($sites,$term,$output,$limit); 
 
         // 3. select one fittest result
-        $result = $this->selectOneResult($resultSet);
+        //$result = $this->selectOneResult($resultSet);
 
 
-        return $result;
+        return $resultSet;
     }
 
     public function setParser($parser)
@@ -96,17 +97,17 @@ class UriSearchService
 
     }
 
-    protected function parseQuery($query)
+    protected function parseQuery($sites,$term,$output,$limit)
     {
-        $command = $this->parser->parse($query);
-        return $command;
+        $spraql = $this->parser->parse($sites,$term,$output,$limit);
+        return $spraql;
 
     }
 
 
-    protected function searchUris($sparqlQuery)
+    protected function searchUris($sites,$term,$output,$limit)
     {
-       $resultSet = $this->federatedSearch.search($sparqlQuery);
+       $resultSet = $this->federatedSearch.search($sites,$term,$output,$limit);
        return $resultSet;
 
     }

@@ -1,0 +1,85 @@
+{
+ "term": "typhoon",
+ "data": [
+ {
+  "dataSourceName": "http://dbpedia.org",
+  "response": {
+   "head": {
+    "link": [],
+    "vars": [
+     "s",
+     "o"
+    ]
+   },
+   "results": {
+    "distinct": false,
+    "ordered": true,
+    "bindings": [
+     {
+      "s": {
+       "type": "uri",
+       "value": "http://wikidata.dbpedia.org/uri_1"
+      },
+      "o": {
+       "type": "literal",
+       "xml:lang": "en",
+       "value": "typhoon"
+      }
+     },
+     {
+      "s": {
+       "type": "uri",
+       "value": "http://dbpedia.org/resource/uri_2"
+      },
+      "o": {
+       "type": "literal",
+       "xml:lang": "en",
+       "value": "Typhoon shelters in Hong Kong"
+      }
+     }                        
+    ]
+   }
+  }
+ },
+ {
+  "dataSourceName": "http://dbpedia.org",
+  "response": {
+   "head": {
+    "link": [],
+    "vars": [
+     "s",
+     "o"
+    ]
+   },
+   "results": {
+    "distinct": false,
+    "ordered": true,
+    "bindings": [
+     {
+      "s": {
+       "type": "uri",
+       "value": "http://wikidata.dbpedia.org/uri_1"
+      },
+      "o": {
+       "type": "literal",
+       "xml:lang": "en",
+       "value": "typhoon"
+      }
+     },
+     {
+      "s": {
+       "type": "uri",
+       "value": "http://dbpedia.org/resource/uri_2"
+      },
+      "o": {
+       "type": "literal",
+       "xml:lang": "en",
+       "value": "Typhoon shelters in Hong Kong"
+      }
+     }                        
+    ]
+   }
+  }
+ }
+]
+}

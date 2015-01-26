@@ -1,0 +1,15 @@
+{ "aaData": [
+	["Trident","Internet Explorer 4.0","Win 95+","4","X","", "<a class=\"edit\" href=\" \">Edit</a>", "<a class=\"delete\" href=\" \">Delete</a>" ]
+	
+	],
+	"aoColumns":[
+		{"sTitle": "#"},
+		{"sTitle": "Checked Box"},
+		{"sTitle": "Original URI"},
+		{"sTitle": "Extracted Term"},
+		{"sTitle": "Line Number"},
+		{"sTitle": "Status"},
+		{"sTitle": "Edit"},
+		{"sTitle": "Delete"}
+	]
+}

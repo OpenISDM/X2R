@@ -38,6 +38,7 @@ header ('Content-Type: text/html; charset=utf-8');
 include_once 'EndpointBase.php';
 include_once 'endpoint/Dbpedia.php';
 include_once 'endpoint/Linkedgeodata.php';
+include_once 'sparqlRepositoryOperationStatus.php';
 
 error_reporting(0);
 
@@ -93,8 +94,14 @@ class Endpoint
     {
 
         $this->baseUrl = EndpointBase::DBPEDIA;
-        $his->timeToLive = 1; #defaultTimeToLive
-
+        $this->timeToLive = 1; #defaultTimeToLive
+		$searchedTerm;
+		$sparqlQuery;
+		$outputFormat;
+		$searchedResult;
+		$limit;
+		$filters;
+		$sparqlEndpoint = new sparqlRepositoryInformation;
     }
 
 
@@ -354,7 +361,99 @@ class Endpoint
 
 
 }
+    /*++
+        Function Name:
 
+            SynthesiseSingleSparqlQuery
+
+        Function Description:
+
+            This function initial the required information which the Search 
+			task need.
+
+        Parameters:
+
+			initialTask sparqlTask - The search task for sparql query.
+
+			string sites - The siteURL of the endpoint code.
+			
+            string term - The term of interest to search.
+			
+            string output - The path of output file.
+			
+            string limit - The number of how many result we want to show.
+			
+            string value - The codeName of the endpoint code.
+			
+        Possible Error Code or Exception:
+
+    --*/
+	
+	public function SynthesiseSingleSparqlQuery($sparqlTask,$sites,$term,$output,$limit,$value)
+	{
+
+		$sp = new sparqlRepositoryOperationStatus;
+				
+		$sparqlTask->searchTerm = $term;
+		
+        $sparqlTask->outputFormat = $output;
+		
+        $sparqlTask->limit = $limit;
+		
+		$sparqlTask->sparqlEndpoint = 
+			$sp->GetRepositoryOperationalStatus($value,$sites);
+
+		$sparqlTask->sparqlQuery = $this->composeSparqlQuery(
+                $sparqlTask->searchTerm, 
+                $sparqlTask->sparqlEndpoint->dataSourceName, 
+                $sparqlTask->limit,
+                $sparqlTask->filters
+            );
+
+		return $sparqlTask;
+	}
+	
+    /*++
+        Function Name:
+
+            SynthesiseMultipleSparqlQueries
+
+        Function Description:
+
+            This function initial the required information which the Search 
+			tasks need.
+
+        Parameters:
+
+			string sites - The siteURL of the endpoint code.
+			
+            string term - The term of interest to search.
+			
+            string output - The path of output file.
+			
+            string limit - The number of how many result we want to show.
+			
+        Possible Error Code or Exception:
+
+    --*/	
+	
+	public function SynthesiseMultipleSparqlQueries($sites,$term,$output,$limit)
+	{
+		if (!empty($sites)) {
+
+			foreach ($sites as $key => $value) {
+			
+				$sparqlTask = new Endpoint;
+				
+				$sparqlTask = $this->SynthesiseSingleSparqlQuery($sparqlTask,$sites,$term,$output,$limit,$value);
+				
+				$sparqlTasks[] = $sparqlTask;
+
+			}
+		}
+
+		return $sparqlTasks;
+	}
 
 /*  Usage Example:
 $filters;

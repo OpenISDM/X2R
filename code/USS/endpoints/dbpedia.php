@@ -68,7 +68,7 @@ class Dbpedia
         return $sparqlQueryString;
 	}
 	
-	public function query($sparqlQueryString)
+	public function query($sparqlQueryString, $baseURL, $dataSourceName, $output='text/html')
     {
 
         //TODO: implement this method by 

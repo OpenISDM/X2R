@@ -1,0 +1,20 @@
+{
+    "endpoints": [
+        {
+            "codeName": "dbp",
+            "name": "DBPedia",
+            "siteURL": "http://dbpedia.org/",
+            "sparqlEndpointURL": "http://dbpedia.org/sparql/",
+            "dataSourceName": "http://dbpedia.org",
+            "status": "alive"
+        },
+        {
+            "codeName": "dbp_temp",
+            "name": "DBPedia_temp",
+            "siteURL": "http://dbpedia.org/",
+            "sparqlEndpointURL": "http://dbpedia.org/sparql/",
+            "dataSourceName": "http://dbpedia.org/",
+            "status": "alive"
+        }
+    ]
+}
