@@ -32,7 +32,7 @@
     Major Revision History:
     
 --*/
-header ('Content-Type: text/html; charset=utf-8');
+
 
 class sparqlRepositoryInformation
 {

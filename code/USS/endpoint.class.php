@@ -35,10 +35,11 @@
 
 header ('Content-Type: text/html; charset=utf-8');
 
-include_once 'EndpointBase.php';
-include_once 'endpoint/Dbpedia.php';
-include_once 'endpoint/Linkedgeodata.php';
-include_once 'sparqlRepositoryOperationStatus.php';
+
+require dirname(__FILE__) .'/endpoints/Dbpedia.php';
+require dirname(__FILE__) .'/endpoints/Linkedgeodata.php';
+require dirname(__FILE__) .'/sparqlRepositoryOperationStatus.php';
+require dirname(__FILE__) .'/endpointBase.class.php';
 
 error_reporting(0);
 
@@ -135,7 +136,7 @@ class Endpoint
         {
              // Fail-silent (intended no-operation)
         }
-
+		
         return $this;
 
     }
@@ -360,7 +361,7 @@ class Endpoint
     }
 
 
-}
+
     /*++
         Function Name:
 
@@ -454,17 +455,5 @@ class Endpoint
 
 		return $sparqlTasks;
 	}
+}
 
-/*  Usage Example:
-$filters;
-$ep = new Endpoint();
-$ep->configEndpointBaseUrl('http://dbpedia.org/sparql/')
-   ->configTimeToLiveInSeconds(1);
-
-$baseUrl = $ep->getBaseUrl();
-$dataSourceName = rtrim($baseUrl, 'sparql/');
-$sparqlQueryString = composeSparqlQuery("typhoon", $dataSourceName, 10, $filters);
-$result = query($sparqlQueryString, $baseUrl, $dataSourceName,'json');
-
-echo $result;
-/*
