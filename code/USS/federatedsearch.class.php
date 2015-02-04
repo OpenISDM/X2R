@@ -35,13 +35,14 @@
 --*/
 
 header ('Content-Type: text/html; charset=utf-8');
-include_once 'sparqlRepositoryOperationStatus.php';
+require dirname(__FILE__) .'/sparqlRepositoryOperationStatus.php';
+require dirname(__FILE__) .'/endpoint.class.php';
 
 class FederatedSearch
 {
 	function FederatedSearch()
 	{
-		$this->defaultSearch = new Endpoint();
+		$defaultSearch = new Endpoint;
 
 	}
 
@@ -62,11 +63,11 @@ class FederatedSearch
 
 	public function search($sites,$term,$output,$limit)
 	{
-		$sparqlTasks = $this->defaultSearch->SynthesiseMultipleSparqlQueries(
+		$sparqlTasks = $defaultSearch->SynthesiseMultipleSparqlQueries(
 			$sites,$term,$output,$limit);
 	
 		foreach ($sparqlTasks as $key => $sparqlTask) {  
-			$sparqlTask->searchedResult = $this->defaultSearch->performQuery(
+			$sparqlTask->searchedResult = $defaultSearch->performQuery(
 				$sparqlTask->sparqlQuery,
 				$sparqlTask->sparqlEndpoint->sparqlEndpointURL,
 				$sparqlTask->sparqlEndpoint->dataSourceName,

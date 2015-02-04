@@ -34,7 +34,7 @@
 --*/
 
 
-include_once 'sparqlRepositoryInformation.php';
+require dirname(__FILE__) . '/sparqlRepositoryInformation.php';
 
 class sparqlRepositoryOperationStatus
 {

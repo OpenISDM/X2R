@@ -1,0 +1,6 @@
+SELECT DISTINCT ?s ?o FROM <http://dbpedia.org> WHERE { 
+?s <http://www.w3.org/2000/01/rdf-schema#label> ?o . 
+?o bif:contains "typhoon" . 
+FILTER ( regex(str(?o), '^typhoon') || regex(str(?o), '^Typhoon')) . 
+FILTER (lang(?o) = 'en') . 
+} 
