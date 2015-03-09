@@ -38,11 +38,14 @@
 --*/
 
 header ('Content-Type: text/html; charset=utf-8');
-include_once 'Endpoint.class.php';
-include_once 'parsers/DefaultParser.class.php'
-include_once 'rankers/DefaultRanker.class.php';
-include_once 'refiners/DefaultRefiner.class.php';
-include_once 'selectors/DefaultSelector.class.php';
+
+require dirname(__FILE__). '/endpoint.class.php';
+require dirname(__FILE__). '/parsers/defaultParser.class.php'
+require dirname(__FILE__). '/rankers/defaultRanker.class.php';
+require dirname(__FILE__). '/refiners/defaultRefiner.class.php';
+require dirname(__FILE__). '/refiners/interactiveRefiner.class.php';
+require dirname(__FILE__). '/selectors/defaultSelector.class.php';
+require dirname(__FILE__). '/selectors/interactiveSelector.class.php';
 
 class UssContainer
 {

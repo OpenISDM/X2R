@@ -1,6 +1,5 @@
 <?php
 
-require 'PHPUnit/Autoload.php';
 require dirname(dirname(dirname(__FILE__))) .'/USS/endpoint.class.php';
 
 class EndpointClassTest extends PHPUnit_Framework_TestCase

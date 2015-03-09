@@ -1,6 +1,5 @@
 <?php
 
-require 'PHPUnit/Autoload.php';
 require dirname(dirname(dirname(dirname(__FILE__)))) .'/USS/endpoints/dbpedia.php';
 
 class dbpediaTest extends PHPUnit_Framework_TestCase

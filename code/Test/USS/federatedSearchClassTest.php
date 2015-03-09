@@ -1,6 +1,5 @@
 <?php
 
-require 'PHPUnit/Autoload.php';
 require dirname(dirname(dirname(__FILE__))) .'/USS/federatedSearch.class.php';
 
 class FederatedSearchClassTest extends PHPUnit_Framework_TestCase
@@ -18,7 +17,9 @@ class FederatedSearchClassTest extends PHPUnit_Framework_TestCase
 		$dir = dirname(__FILE__);
 		$dir .= '/testCase_federatedSearchClass.json';
 		
-		//$expection = json_decode(file_get_contents($dir), true);
+		$expection = json_decode(file_get_contents($dir), true);
+		
+		
 		
 		$this->assertEquals($expection,$search->integrateSearchedResults($sparqlTasks));
 	}
